@@ -57,7 +57,7 @@ public partial class MyApplication : System.Web.HttpApplication
 		/* builder.RegisterType<MyDbContext>(); */
 		
 		var container = builder.Build();
-		JobActivator.Current = new AutofacJobActivator(container);
+		JobActivator.SetCurrent(new AutofacJobActivator(container));
     }
 }
 ```
