@@ -1,6 +1,8 @@
 HangFire.Autofac
 ================
 
+[![Build status](https://ci.appveyor.com/api/projects/status/0xf9wv6crdy1tl6y)](https://ci.appveyor.com/project/odinserj/hangfire-autofac)
+
 [HangFire](http://hangfire.io) background job activator based on 
 [Autofac](http://autofac.org) IoC Container. It allows you to use instance
 methods of classes that define parametrized constructors:
