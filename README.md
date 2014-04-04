@@ -49,7 +49,7 @@ In order to use the library, you should register it as your
 JobActivator class:
 
 ```csharp
-// Global.asax.cs or other file that initializes Ninject bindings.
+// Global.asax.cs or other file that initializes Autofac bindings.
 public partial class MyApplication : System.Web.HttpApplication
 {
     protected void Application_Start()
