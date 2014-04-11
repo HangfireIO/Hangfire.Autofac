@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("HangFire.Autofac")]
-[assembly: AssemblyDescription("HangFire job activator based on Autofac IoC Container")]
+[assembly: AssemblyDescription("Autofac IoC Container support for HangFire (background job system for ASP.NET applications).")]
 [assembly: AssemblyProduct("HangFire")]
 [assembly: AssemblyCopyright("Copyright © 2014 Sergey Odinokov")]
 
