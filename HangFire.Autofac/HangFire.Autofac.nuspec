@@ -3,7 +3,7 @@
   <metadata>
     <id>HangFire.Autofac</id>
     <version>$version$</version>
-    <title>HangFire.Autofac</title>
+    <title>HangFire Autofac Integration</title>
     <authors>Sergey Odinokov</authors>
     <owners>odinserj</owners>
     <projectUrl>https://github.com/odinserj/HangFire.Autofac</projectUrl>
