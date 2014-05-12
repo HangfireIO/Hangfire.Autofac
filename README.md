@@ -54,12 +54,12 @@ public partial class MyApplication : System.Web.HttpApplication
 {
     protected void Application_Start()
     {
-		var builder = new ContainerBuilder();
-		/* Register types */
-		/* builder.RegisterType<MyDbContext>(); */
-		
-		var container = builder.Build();
-		JobActivator.SetCurrent(new AutofacJobActivator(container));
+        var builder = new ContainerBuilder();
+        /* Register types */
+        /* builder.RegisterType<MyDbContext>(); */
+        
+        var container = builder.Build();
+        JobActivator.Current = new AutofacJobActivator(container);
     }
 }
 ```
