@@ -45,23 +45,42 @@ Install-Package HangFire.Autofac
 Usage
 ------
 
-In order to use the library, you should register it as your
-JobActivator class:
+### Web application
+
+Update your OWIN Startup class with the following lines:
 
 ```csharp
-// Global.asax.cs or other file that initializes Autofac bindings.
-public partial class MyApplication : System.Web.HttpApplication
+public class Startup
 {
-    protected void Application_Start()
+    public void Configure(IAppBuilder app)
     {
-        var builder = new ContainerBuilder();
-        /* Register types */
-        /* builder.RegisterType<MyDbContext>(); */
+        app.UseHangFire(config =>
+        {
+            var builder = new ContainerBuilder();
+            /* Register types */
+            /* builder.RegisterType<MyDbContext>(); */
         
-        var container = builder.Build();
-        JobActivator.Current = new AutofacJobActivator(container);
+            var container = builder.Build();
+            config.UseAutofacActivator(container);
+
+            // Other configuration actions
+        });
     }
 }
+```
+
+### Other application types
+
+Pass an instance of the `AutofacJobActivator` class to the global job activator somewhere in application initialization logic:
+
+```csharp
+var builder = new ContainerBuilder();
+/* Register types */
+/* builder.RegisterType<MyDbContext>(); */
+        
+var container = builder.Build();
+
+JobActivator.Current = new AutofacJobActivator(container);
 ```
 
 HTTP Request warnings
