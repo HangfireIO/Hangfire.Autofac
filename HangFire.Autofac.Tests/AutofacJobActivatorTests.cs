@@ -1,6 +1,7 @@
 ﻿using System;
 using Autofac;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 
 namespace HangFire.Autofac.Tests
 {
@@ -39,6 +40,17 @@ namespace HangFire.Autofac.Tests
             var result = activator.ActivateJob(typeof(string));
 
             Assert.AreEqual("called", result);
+        }
+
+        [TestMethod]
+        public void UseAutofacActivator_CallsUseActivatorCorrectly()
+        {
+            var configuration = new Mock<IBootstrapperConfiguration>();
+            var lifetimeScope = new Mock<ILifetimeScope>();
+
+            configuration.Object.UseAutofacActivator(lifetimeScope.Object);
+
+            configuration.Verify(x => x.UseActivator(It.IsAny<AutofacJobActivator>()));
         }
     }
 }

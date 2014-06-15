@@ -56,6 +56,9 @@
     <Reference Include="Microsoft.Owin">
       <HintPath>..\packages\Microsoft.Owin.2.1.0\lib\net45\Microsoft.Owin.dll</HintPath>
     </Reference>
+    <Reference Include="Moq">
+      <HintPath>..\packages\Moq.4.2.1402.2112\lib\net40\Moq.dll</HintPath>
+    </Reference>
     <Reference Include="NCrontab">
       <HintPath>..\packages\ncrontab.1.0.0\lib\NCrontab.dll</HintPath>
     </Reference>
