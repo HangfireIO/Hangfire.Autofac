@@ -90,9 +90,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\HangFire.Autofac\HangFire.Autofac.csproj">
+    <ProjectReference Include="..\HangFire.Autofac\Hangfire.Autofac.csproj">
       <Project>{635b2de7-841f-4834-b609-8da159d87552}</Project>
-      <Name>HangFire.Autofac</Name>
+      <Name>Hangfire.Autofac</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

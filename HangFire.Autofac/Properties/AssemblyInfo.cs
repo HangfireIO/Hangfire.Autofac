@@ -4,9 +4,9 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("HangFire.Autofac")]
-[assembly: AssemblyDescription("Autofac IoC Container support for HangFire (background job system for ASP.NET applications).")]
-[assembly: AssemblyProduct("HangFire")]
+[assembly: AssemblyTitle("Hangfire.Autofac")]
+[assembly: AssemblyDescription("Autofac IoC Container support for Hangfire (background job system for ASP.NET applications).")]
+[assembly: AssemblyProduct("Hangfire")]
 [assembly: AssemblyCopyright("Copyright © 2014 Sergey Odinokov")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 

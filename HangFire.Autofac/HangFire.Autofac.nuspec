@@ -1,20 +1,20 @@
 ﻿<?xml version="1.0"?>
 <package >
   <metadata>
-    <id>HangFire.Autofac</id>
+    <id>Hangfire.Autofac</id>
     <version>$version$</version>
-    <title>HangFire Autofac Integration</title>
+    <title>Hangfire Autofac Integration</title>
     <authors>Sergey Odinokov</authors>
     <owners>odinserj</owners>
-    <projectUrl>https://github.com/odinserj/HangFire.Autofac</projectUrl>
+    <projectUrl>https://github.com/HangfireIO/Hangfire.Autofac</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <licenseUrl>https://raw.github.com/odinserj/HangFire.Autofac/master/LICENSE</licenseUrl>
+    <licenseUrl>https://raw.github.com/HangfireIO/Hangfire.Autofac/master/LICENSE</licenseUrl>
     <description>$description$</description>
     <copyright>Copyright © 2014 Sergey Odinokov</copyright>
-    <tags>Autofac Async Background Fire-And-Forget Jobs Tasks Workers Threading Queue</tags>
+    <tags>Hangfire Autofac IoC</tags>
 	<dependencies>
 		<dependency id="Autofac" version="2.6.3.862" />
-		<dependency id="HangFire.Core" version="1.0.1" />
+		<dependency id="Hangfire.Core" version="1.0.1" />
 	</dependencies>
   </metadata>
 </package>
