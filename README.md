@@ -1,9 +1,9 @@
-HangFire.Autofac
+Hangfire.Autofac
 ================
 
-[![Build status](https://ci.appveyor.com/api/projects/status/0xf9wv6crdy1tl6y)](https://ci.appveyor.com/project/odinserj/hangfire-autofac)
+[![Build status](https://ci.appveyor.com/api/projects/status/oncvxlqtnake9c86)](https://ci.appveyor.com/project/odinserj/hangfire-autofac)
 
-[HangFire](http://hangfire.io) background job activator based on 
+[Hangfire](http://hangfire.io) background job activator based on 
 [Autofac](http://autofac.org) IoC Container. It allows you to use instance
 methods of classes that define parametrized constructors:
 
@@ -35,33 +35,31 @@ Improve the testability of your jobs without static factories!
 Installation
 --------------
 
-HangFire.Autofac is available as a NuGet Package. Type the following
+Hangfire.Autofac is available as a NuGet Package. Type the following
 command into NuGet Package Manager Console window to install it:
 
 ```
-Install-Package HangFire.Autofac
+Install-Package Hangfire.Autofac
 ```
 
 Usage
 ------
 
-In order to use the library, you should register it as your
-JobActivator class:
+The package provides an extension method for [OWIN bootstrapper](http://docs.hangfire.io/en/latest/users-guide/getting-started/owin-bootstrapper.html):
 
 ```csharp
-// Global.asax.cs or other file that initializes Autofac bindings.
-public partial class MyApplication : System.Web.HttpApplication
+app.UseHangfire(config =>
 {
-    protected void Application_Start()
-    {
-        var builder = new ContainerBuilder();
-        /* Register types */
-        /* builder.RegisterType<MyDbContext>(); */
-        
-        var container = builder.Build();
-        JobActivator.Current = new AutofacJobActivator(container);
-    }
-}
+    var builder = new ContainerBuilder();
+    config.UseAutofacActivator(builder.Build());
+});
+```
+
+In order to use the library outside of web application, set the static JobActivator.Current property:
+
+```csharp
+var builder = new ContainerBuilder();
+JobActivator.Current = new AutofacJobActivator(builder.Build());
 ```
 
 HTTP Request warnings
