@@ -14,7 +14,7 @@
     <tags>Autofac Async Background Fire-And-Forget Jobs Tasks Workers Threading Queue</tags>
 	<dependencies>
 		<dependency id="Autofac" version="2.6.3.862" />
-		<dependency id="HangFire.Core" version="1.0.0" />
+		<dependency id="HangFire.Core" version="1.0.1" />
 	</dependencies>
   </metadata>
 </package>
