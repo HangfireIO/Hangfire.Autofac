@@ -1,7 +1,7 @@
 ﻿using System;
 using Autofac;
 
-namespace HangFire
+namespace Hangfire
 {
     /// <summary>
     /// HangFire Job Activator based on Autofac IoC Container.

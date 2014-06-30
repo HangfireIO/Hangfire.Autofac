@@ -7,8 +7,8 @@
     <ProjectGuid>{635B2DE7-841F-4834-B609-8DA159D87552}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>HangFire</RootNamespace>
-    <AssemblyName>HangFire.Autofac</AssemblyName>
+    <RootNamespace>Hangfire</RootNamespace>
+    <AssemblyName>Hangfire.Autofac</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -32,7 +32,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Release\HangFire.Autofac.XML</DocumentationFile>
+    <DocumentationFile>bin\Release\Hangfire.Autofac.xml</DocumentationFile>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>

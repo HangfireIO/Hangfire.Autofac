@@ -3,7 +3,7 @@ using Autofac;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
-namespace HangFire.Autofac.Tests
+namespace Hangfire.Autofac.Tests
 {
     [TestClass]
     public class AutofacJobActivatorTests
