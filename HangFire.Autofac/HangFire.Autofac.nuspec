@@ -13,8 +13,8 @@
     <copyright>Copyright © 2014 Sergey Odinokov</copyright>
     <tags>Hangfire Autofac IoC</tags>
 	<dependencies>
-		<dependency id="Autofac" version="2.6.3.862" />
-		<dependency id="Hangfire.Core" version="1.0.1" />
+		<dependency id="Autofac" version="3.5.0" />
+		<dependency id="Hangfire.Core" version="1.0.2" />
 	</dependencies>
   </metadata>
 </package>
