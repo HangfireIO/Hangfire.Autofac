@@ -2,7 +2,7 @@
 
 namespace Hangfire
 {
-    public static class NinjectBootstrapperConfigurationExtensions
+    public static class AutofacBootstrapperConfigurationExtensions
     {
         /// <summary>
         /// Tells bootstrapper to use the specified Autofac
