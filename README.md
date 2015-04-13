@@ -45,21 +45,11 @@ Install-Package Hangfire.Autofac
 Usage
 ------
 
-The package provides an extension method for [OWIN bootstrapper](http://docs.hangfire.io/en/latest/users-guide/getting-started/owin-bootstrapper.html):
-
-```csharp
-app.UseHangfire(config =>
-{
-    var builder = new ContainerBuilder();
-    config.UseAutofacActivator(builder.Build());
-});
-```
-
-In order to use the library outside of web application, set the static JobActivator.Current property:
+The package provides an extension method for `IGlobalConfiguration` interface:
 
 ```csharp
 var builder = new ContainerBuilder();
-JobActivator.Current = new AutofacJobActivator(builder.Build());
+GlobalConfiguration.Configuration.UseAutofacActivator(builder.Build());
 ```
 
 HTTP Request warnings
