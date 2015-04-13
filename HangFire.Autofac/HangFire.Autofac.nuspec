@@ -10,11 +10,11 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <licenseUrl>https://raw.github.com/HangfireIO/Hangfire.Autofac/master/LICENSE</licenseUrl>
     <description>$description$</description>
-    <copyright>Copyright © 2014 Sergey Odinokov</copyright>
+    <copyright>Copyright © 2014-2015 Sergey Odinokov</copyright>
     <tags>Hangfire Autofac IoC</tags>
 	<dependencies>
 		<dependency id="Autofac" version="2.6.3.862" />
-		<dependency id="Hangfire.Core" version="1.0.1" />
+		<dependency id="Hangfire.Core" version="1.4.0" />
 	</dependencies>
   </metadata>
 </package>
