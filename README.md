@@ -3,40 +3,14 @@ Hangfire.Autofac
 
 [![Build status](https://ci.appveyor.com/api/projects/status/oncvxlqtnake9c86)](https://ci.appveyor.com/project/odinserj/hangfire-autofac)
 
-[Hangfire](http://hangfire.io) background job activator based on 
-[Autofac](http://autofac.org) IoC Container. It allows you to use instance
-methods of classes that define parametrized constructors:
+[Autofac](http://autofac.org) integration for [Hangfire](http://hangfire.io). Provides an implementation of the `JobActivator` class and registration extensions, allowing you to use Autofac container to **resolve job class instances** as well as **control the lifetime** of the all related dependencies.
 
-```csharp
-public class EmailService
-{
-	private DbContext _context;
-    private IEmailSender _sender;
-	
-	public EmailService(DbContext context, IEmailSender sender)
-	{
-		_context = context;
-		_sender = sender;
-	}
-	
-	public void Send(int userId, string message)
-	{
-		var user = _context.Users.Get(userId);
-		_sender.Send(user.Email, message);
-	}
-}	
-
-// Somewhere in the code
-BackgroundJob.Enqueue<EmailService>(x => x.Send(1, "Hello, world!"));
-```
-
-Improve the testability of your jobs without static factories!
+*Hangfire.Autofac* resolves service instances in a child, tagged [lifetime scope](http://docs.autofac.org/en/latest/lifetime/index.html). A child scope is created and disposed each time when background job processing takes place, so you have precise control of your service's lifetime, including **shared instances** and **deterministic disposal**.
 
 Installation
 --------------
 
-Hangfire.Autofac is available as a NuGet Package. Type the following
-command into NuGet Package Manager Console window to install it:
+*Hangfire.Autofac* package is available as a NuGet Package. Type the following command into NuGet Package Manager Console window to install it:
 
 ```
 Install-Package Hangfire.Autofac
@@ -45,19 +19,56 @@ Install-Package Hangfire.Autofac
 Usage
 ------
 
-The package provides an extension method for `IGlobalConfiguration` interface:
+The package provides an extension methods for the `IGlobalConfiguration` interface, so you can enable Autofac integration using the `GlobalConfiguration` class:
 
 ```csharp
 var builder = new ContainerBuilder();
+// builder.Register...
+
 GlobalConfiguration.Configuration.UseAutofacActivator(builder.Build());
 ```
 
-HTTP Request warnings
------------------------
+After invoking the `UseAutofacActivator` method, Autofac-based implementation of the `JobActivator` class will be used to resolve job class instances during the background job processing.
 
-Services registered with `InstancePerHttpRequest()` directive **will be unavailable**
-during job activation, you should re-register these services without this
-hint.
+### Shared Components
 
-`HttpContext.Current` is also **not available** during the job performance. 
-Don't use it!
+Sometimes it is required to share the same service instance for different components, such as database connection, unit of work, etc. *Hangfire.Autofac* allows you to share them in a scope, limited to the **current** background job processing, just call the `InstancePerBackgroundJob` method in your component registration logic:
+
+```csharp
+builder.RegisterType<Database>().InstancePerBackgroundJob();
+```
+
+### Deterministic Disposal
+
+The *child lifetime scope* is disposed as soon as current background job is performed, successfully or with an exception. Since *Autofac* automatically disposes all the components that implement the `IDisposable` interface (if this feature not disabled), all of the resolved components will be disposed *if appropriate*.
+
+For example, the following components will be **disposed automatically**:
+
+```csharp
+builder.RegisterType<SmsService>();
+builder.RegisterType<EmailService>().InstancePerDependency();
+builder.RegisterType<Database>().InstancePerBackgroundJob();
+```
+
+And the following components **will not be disposed**:
+
+```csharp
+builder.RegisterType<BackgroundJobClient>().SingleInstance();
+builder.RegisterType<MyService>().ExternallyOwned();
+```
+
+Please refer to the Autofac documentation to learn more about [Automatic Disposal](http://docs.autofac.org/en/latest/lifetime/disposal.html#automatic-disposal) feature.
+
+HTTP Request Warnings
+----------------------
+
+Services registered with `InstancePerHttpRequest()` method **will be unavailable** during job activation, you should re-register these services without this hint. If you have components registered for the HTTP request scope, please add an additional scope for them:
+
+```csharp
+builder.RegisterType<Database>()
+    .InstancePerBackgroundJob()
+    .InstancePerHttpRequest();
+```
+
+**`HttpContext.Current` is also not available during the job performance. Don't use it!**
+
