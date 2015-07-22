@@ -8,7 +8,7 @@ Hangfire.Autofac [![Build status](https://ci.appveyor.com/api/projects/status/on
 Installation
 --------------
 
-*Hangfire.Autofac* package is available as a NuGet Package. Type the following command into NuGet Package Manager Console window to install it:
+*Hangfire.Autofac* is available as a NuGet Package. Type the following command into NuGet Package Manager Console window to install it:
 
 ```
 Install-Package Hangfire.Autofac
