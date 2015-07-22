@@ -3,7 +3,7 @@ Hangfire.Autofac [![Build status](https://ci.appveyor.com/api/projects/status/on
 
 [Autofac](http://autofac.org) integration for [Hangfire](http://hangfire.io). Provides an implementation of the `JobActivator` class and registration extensions, allowing you to use Autofac container to **resolve job class instances** as well as **control the lifetime** of the all related dependencies.
 
-*Hangfire.Autofac* resolves service instances in a child, tagged [lifetime scope](http://docs.autofac.org/en/latest/lifetime/index.html). A child scope is created and disposed each time when background job processing takes place, so you have precise control of your service's lifetime, including **shared instances** and **deterministic disposal**.
+*Hangfire.Autofac* resolves service instances using a child, tagged [lifetime scope](http://docs.autofac.org/en/latest/lifetime/index.html). A child scope is created and disposed each time when background job processing takes place, so you have precise control of your service's lifetime, including **shared instances** and **deterministic disposal**.
 
 Installation
 --------------
