@@ -25,7 +25,7 @@ namespace Hangfire
             InstancePerBackgroundJob<TLimit, TActivatorData, TStyle>(
             [NotNull] this IRegistrationBuilder<TLimit, TActivatorData, TStyle> registration)
         {
-            if (registration == null) throw new ArgumentNullException(nameof(registration));
+            if (registration == null) throw new ArgumentNullException("registration");
             return registration.InstancePerMatchingLifetimeScope(AutofacJobActivator.LifetimeScopeTag);
         }
     }

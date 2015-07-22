@@ -20,7 +20,7 @@ namespace Hangfire
         /// of classes during job activation process.</param>
         public AutofacJobActivator([NotNull] ILifetimeScope lifetimeScope)
         {
-            if (lifetimeScope == null) throw new ArgumentNullException(nameof(lifetimeScope));
+            if (lifetimeScope == null) throw new ArgumentNullException("lifetimeScope");
             _lifetimeScope = lifetimeScope;
         }
 
