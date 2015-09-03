@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Hangfire.Autofac")]
 [assembly: AssemblyDescription("Autofac IoC Container support for Hangfire (background job system for ASP.NET applications).")]
 [assembly: AssemblyProduct("Hangfire")]
-[assembly: AssemblyCopyright("Copyright © 2014 Sergey Odinokov")]
+[assembly: AssemblyCopyright("Copyright © 2014-2015 Sergey Odinokov")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 
 // to COM components.  If you need to access a type in this assembly from 
@@ -17,6 +17,5 @@ using System.Runtime.InteropServices;
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("c38d8acf-7b2c-4d7f-84ad-c477879ade3f")]
 
-[assembly: AssemblyInformationalVersion("1.2.0-beta1")]
-[assembly: AssemblyVersion("1.2.0")]
-[assembly: AssemblyFileVersion("1.2.0.0")]
+[assembly: AssemblyInformationalVersion("2.0.0-beta1")]
+[assembly: AssemblyVersion("2.0.0")]
