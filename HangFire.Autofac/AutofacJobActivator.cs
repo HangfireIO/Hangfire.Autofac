@@ -9,7 +9,11 @@ namespace Hangfire
     /// </summary>
     public class AutofacJobActivator : JobActivator
     {
-        internal static readonly object LifetimeScopeTag = new object();
+        /// <summary>
+        /// Tag used in setting up per-job lifetime scope registrations.
+        /// </summary>
+        public static readonly object LifetimeScopeTag = (object) "HangfireJob";
+
         private readonly ILifetimeScope _lifetimeScope;
 
         /// <summary>
