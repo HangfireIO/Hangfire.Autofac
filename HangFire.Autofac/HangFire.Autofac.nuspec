@@ -12,6 +12,10 @@
     <description>$description$</description>
     <copyright>Copyright © 2014-2015 Sergey Odinokov</copyright>
     <tags>Hangfire Autofac IoC</tags>
+    <releaseNotes>
+2.0.1
+* Changed – `AutofacJobActivator.LifetimeScopeTag` field is now public.
+    </releaseNotes>
 	<dependencies>
 		<dependency id="Autofac" version="3.0.0" />
 		<dependency id="Hangfire.Core" version="1.5.0" />
