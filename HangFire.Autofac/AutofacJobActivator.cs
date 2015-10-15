@@ -12,7 +12,7 @@ namespace Hangfire
         /// <summary>
         /// Tag used in setting up per-job lifetime scope registrations.
         /// </summary>
-        public static readonly object LifetimeScopeTag = (object) "HangfireJob";
+        public static readonly object LifetimeScopeTag = "BackgroundJobScope";
 
         private readonly ILifetimeScope _lifetimeScope;
 
