@@ -8,12 +8,12 @@ namespace Hangfire
     {
         public static IGlobalConfiguration<AutofacJobActivator> UseAutofacActivator(
             [NotNull] this IGlobalConfiguration configuration, 
-            [NotNull] ILifetimeScope lifetimeScope)
+            [NotNull] ILifetimeScope lifetimeScope, bool useTaggedLifetimeScope = true)
         {
             if (configuration == null) throw new ArgumentNullException("configuration");
             if (lifetimeScope == null) throw new ArgumentNullException("lifetimeScope");
 
-            return configuration.UseActivator(new AutofacJobActivator(lifetimeScope));
+            return configuration.UseActivator(new AutofacJobActivator(lifetimeScope, useTaggedLifetimeScope));
         }
     }
 }

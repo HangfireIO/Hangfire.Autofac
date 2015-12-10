@@ -127,6 +127,57 @@ namespace Hangfire.Autofac.Tests
         }
 
         [TestMethod]
+        public void InstancePerJob_RegistersSameServiceInstance_ForTheSameScopeInstance()
+        {
+            _builder.Register(c => new object()).As<object>().InstancePerLifetimeScope();
+            var activator = CreateActivator(false);
+
+            using (var scope = activator.BeginScope())
+            {
+                var instance1 = scope.Resolve(typeof(object));
+                var instance2 = scope.Resolve(typeof(object));
+
+                Assert.AreSame(instance1, instance2);
+            }
+        }
+
+        [TestMethod]
+        public void InstancePerJob_RegistersDifferentServiceInstances_ForDifferentScopeInstances()
+        {
+            _builder.Register(c => new object()).As<object>();
+            var activator = CreateActivator(false);
+
+            object instance1;
+            using (var scope1 = activator.BeginScope())
+            {
+                instance1 = scope1.Resolve(typeof(object));
+            }
+
+            object instance2;
+            using (var scope2 = activator.BeginScope())
+            {
+                instance2 = scope2.Resolve(typeof(object));
+            }
+
+            Assert.AreNotSame(instance1, instance2);
+        }
+
+        [TestMethod]
+        public void InstanceRegisteredWith_InstancePerJob_IsDisposedOnScopeDisposal()
+        {
+            var disposable = new Disposable();
+            _builder.Register(c => disposable);
+            var activator = CreateActivator();
+
+            using (var scope = activator.BeginScope())
+            {
+                var instance = scope.Resolve(typeof(Disposable));
+            }
+
+            Assert.IsTrue(disposable.Disposed);
+        }
+
+        [TestMethod]
         public void UseAutofacActivator_CallsUseActivatorCorrectly()
         {
             var configuration = new Mock<IBootstrapperConfiguration>();
@@ -137,9 +188,9 @@ namespace Hangfire.Autofac.Tests
             configuration.Verify(x => x.UseActivator(It.IsAny<AutofacJobActivator>()));
         }
 
-        private AutofacJobActivator CreateActivator()
+        private AutofacJobActivator CreateActivator(bool useTaggedLifetimeScope = true)
         {
-            return new AutofacJobActivator(_builder.Build());
+            return new AutofacJobActivator(_builder.Build(), useTaggedLifetimeScope);
         }
 
         class Disposable : IDisposable
