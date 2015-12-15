@@ -36,6 +36,23 @@ Sometimes it is required to share the same service instance for different compon
 builder.RegisterType<Database>().InstancePerBackgroundJob();
 ```
 
+### Non-tagged scopes
+
+Whenever the scopes in `AutofacActivator` are created, by default they are created using tag `BackgroundJobScope`. There might be a scenario when it is needed not to use tagged scopes though. This might be a case if it is required to have a new instance of every service for each lifetime scope (in Hangfire it would be for every job). To disable tagged scopes you can use a flag `useTaggedLifetimeScope` during initialization of `AutofacActivator` for Hangfire.
+
+```csharp
+var builder = new ContainerBuilder();
+// builder.Register...
+
+GlobalConfiguration.Configuration.UseAutofacActivator(builder.Build(), false);
+```
+
+Then you can register services by using `InstancePerLifetimeScope` and expect them to work like intended.
+
+```csharp
+builder.RegisterType<Database>().InstancePerLifetimeScope();
+```
+
 ### Deterministic Disposal
 
 The *child lifetime scope* is disposed as soon as current background job is performed, successfully or with an exception. Since *Autofac* automatically disposes all the components that implement the `IDisposable` interface (if this feature not disabled), all of the resolved components will be disposed *if appropriate*.
