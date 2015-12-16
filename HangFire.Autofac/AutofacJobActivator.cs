@@ -15,6 +15,7 @@ namespace Hangfire
         public static readonly object LifetimeScopeTag = "BackgroundJobScope";
 
         private readonly ILifetimeScope _lifetimeScope;
+        private readonly bool _useTaggedLifetimeScope;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AutofacJobActivator"/>
@@ -22,10 +23,13 @@ namespace Hangfire
         /// </summary>
         /// <param name="lifetimeScope">Container that will be used to create instance
         /// of classes during job activation process.</param>
-        public AutofacJobActivator([NotNull] ILifetimeScope lifetimeScope)
+        /// <param name="useTaggedLifetimeScope">Should the Container use Tag 
+        /// BackgroundJobScope to resolve dependencies or create new Scope on each job</param>
+        public AutofacJobActivator([NotNull] ILifetimeScope lifetimeScope, bool useTaggedLifetimeScope = true)
         {
             if (lifetimeScope == null) throw new ArgumentNullException("lifetimeScope");
             _lifetimeScope = lifetimeScope;
+            _useTaggedLifetimeScope = useTaggedLifetimeScope;
         }
 
         /// <inheritdoc />
@@ -36,7 +40,9 @@ namespace Hangfire
 
         public override JobActivatorScope BeginScope()
         {
-            return new AutofacScope(_lifetimeScope.BeginLifetimeScope(LifetimeScopeTag));
+            return new AutofacScope(_useTaggedLifetimeScope
+                ? _lifetimeScope.BeginLifetimeScope(LifetimeScopeTag)
+                : _lifetimeScope.BeginLifetimeScope());
         }
 
         class AutofacScope : JobActivatorScope
