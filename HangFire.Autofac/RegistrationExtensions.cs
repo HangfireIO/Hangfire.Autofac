@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Autofac.Builder;
 using Hangfire.Annotations;
 
@@ -17,16 +18,20 @@ namespace Hangfire
         /// <typeparam name="TActivatorData">Activator data type.</typeparam>
         /// <typeparam name="TStyle">Registration style.</typeparam>
         /// <param name="registration">The registration to configure.</param>
+        /// <param name="lifetimeScopeTags">Additional tags applied for matching lifetime scopes.</param>
         /// <returns>A registration builder allowing further configuration of the component.</returns>
         /// <exception cref="ArgumentNullException">
         /// Thrown when <paramref name="registration"/> is <see langword="null"/>.
         /// </exception>
         public static IRegistrationBuilder<TLimit, TActivatorData, TStyle>
             InstancePerBackgroundJob<TLimit, TActivatorData, TStyle>(
-            [NotNull] this IRegistrationBuilder<TLimit, TActivatorData, TStyle> registration)
+            [NotNull] this IRegistrationBuilder<TLimit, TActivatorData, TStyle> registration,
+            params object[] lifetimeScopeTags)
         {
             if (registration == null) throw new ArgumentNullException("registration");
-            return registration.InstancePerMatchingLifetimeScope(AutofacJobActivator.LifetimeScopeTag);
+            
+            var tags = new[] { AutofacJobActivator.LifetimeScopeTag }.Concat(lifetimeScopeTags).ToArray();
+            return registration.InstancePerMatchingLifetimeScope(tags);
         }
     }
 }
