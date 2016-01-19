@@ -178,6 +178,34 @@ namespace Hangfire.Autofac.Tests
         }
 
         [TestMethod]
+        public void InstancePerJob_RegisteredWithExtraTags_ResolvesForJobScope()
+        {
+            var alternateLifetimeScopeTag = new object();
+            _builder.Register(c => new object()).As<object>()
+               .InstancePerBackgroundJob(alternateLifetimeScopeTag);
+            var activator = CreateActivator();
+
+            using (var scope = activator.BeginScope())
+            {
+                var instance = scope.Resolve(typeof(object));
+            }
+        }
+
+        [TestMethod]
+        public void InstancePerJob_RegisteredWithExtraTags_ResolvesForAlternateScope()
+        {
+            var alternateLifetimeScopeTag = new object();
+            _builder.Register(c => new object()).As<object>()
+               .InstancePerBackgroundJob(alternateLifetimeScopeTag);
+            var container = _builder.Build();
+
+            using (var scope = container.BeginLifetimeScope(alternateLifetimeScopeTag))
+            {
+                var instance = scope.Resolve(typeof(object));
+            }
+        }
+
+        [TestMethod]
         public void UseAutofacActivator_CallsUseActivatorCorrectly()
         {
             var configuration = new Mock<IBootstrapperConfiguration>();
