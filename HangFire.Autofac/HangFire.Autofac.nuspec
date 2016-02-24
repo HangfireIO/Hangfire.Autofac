@@ -13,6 +13,9 @@
     <copyright>Copyright © 2014-2015 Sergey Odinokov</copyright>
     <tags>Hangfire Autofac IoC</tags>
     <releaseNotes>
+2.2.0
+* Added – Allow combining lifetime scope tags (by @chaoaretasty).
+      
 2.1.0
 * Added – Ability to use non-tagged nested lifetime scopes.
     	
