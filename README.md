@@ -74,16 +74,44 @@ builder.RegisterType<MyService>().ExternallyOwned();
 
 Please refer to the Autofac documentation to learn more about [Automatic Disposal](http://docs.autofac.org/en/latest/lifetime/disposal.html#automatic-disposal) feature.
 
-HTTP Request Warnings
-----------------------
+Registering With Multiple Lifetime Scopes
+-----------------------------------------
 
-Services registered with `InstancePerHttpRequest()` method **will be unavailable** during job activation, you should re-register these services without this hint. If you have components registered for the HTTP request scope, please add an additional scope for them:
+Services registered with tagged lifetime scopes (eg `InstancePerBackgroundJob`, Autofac's `InstancePerRequest` or a scope your specific application requires) will not resolve outside of these named scopes, a common situation is when using Hangfire in an ASP.NET web application. In these situations you must register all your lifetimescopes together if you want the services to be resolved from any of the scopes. Hangfire.Autofac exposes it's lifetime tag and an overload of `InstancePerBackgroundJob` to help you do this.
 
+To register a service with both Autofac's PerRequest and Hangfire's PerBackgroundJob you could do any of the following:
+
+Passing Hangfire's scope tag to Autofac's `InstancePerHttpRequest`:
 ```csharp
-builder.RegisterType<Database>()
-    .InstancePerBackgroundJob()
-    .InstancePerHttpRequest();
+builder.RegisterType<SharedService>().InstancePerHttpRequest(HAutofacJobActivator.LifetimeScopeTag);
 ```
 
-**`HttpContext.Current` is also not available during the job performance. Don't use it!**
+From Autofac 3.4.0 Autofac exposed their lifetime tag as well which can be used with `InstancePerBackgroundJob`:
+```csharp
+MatchingScopeLifetimeTags.RequestLifetimeScopeTag
+builder.RegisterType<SharedService>().InstancePerBackgroundJob(MatchingScopeLifetimeTags.RequestLifetimeScopeTag);
+```
 
+Both scope tags can also be used directly with Autofac's `InstancePerMatchingLifetimeScope`
+```csharp
+var requestTag = MatchingScopeLifetimeTags.RequestLifetimeScopeTag;
+var jobTag = HAutofacJobActivator.LifetimeScopeTag;
+builder.RegisterType<SharedService>().InstancePerMatchingLifetimeScope(requestTag, jobTag);
+```
+
+Mixed Lifetime Scopes
+---------------------
+
+Beaware that if you are using multiple lifetime scopes to share services that all dependencies of those services need to be similarly regustered. For example:
+
+```csharp
+public class WebOnlyService(){ ... }
+public class SharedService(WebOnlyService){ ... }
+
+builder.RegisterType<SharedService>().InstancePerRequest();
+builder.RegisterType<SharedService>().InstancePerMatchingLifetimeScope(requestTag, jobTag);
+```
+
+Attempting to resolve `SharedService` from a background job will throw an exception as Autofac will need to resolve `WebOnlyService` outside of a `RequestLifetimeScope`. 
+
+Also be aware that many web related properties that you may be using such as `HttpContext.Current` **will be unavailable**.
