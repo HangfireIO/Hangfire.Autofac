@@ -95,7 +95,7 @@ builder.RegisterType<SharedService>().InstancePerBackgroundJob(MatchingScopeLife
 Both scope tags can also be used directly with Autofac's `InstancePerMatchingLifetimeScope`
 ```csharp
 var requestTag = MatchingScopeLifetimeTags.RequestLifetimeScopeTag;
-var jobTag = HAutofacJobActivator.LifetimeScopeTag;
+var jobTag = AutofacJobActivator.LifetimeScopeTag;
 builder.RegisterType<SharedService>().InstancePerMatchingLifetimeScope(requestTag, jobTag);
 ```
 
