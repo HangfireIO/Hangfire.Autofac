@@ -83,7 +83,7 @@ To register a service with both Autofac's PerRequest and Hangfire's PerBackgroun
 
 Passing Hangfire's scope tag to Autofac's `InstancePerHttpRequest`:
 ```csharp
-builder.RegisterType<SharedService>().InstancePerHttpRequest(HAutofacJobActivator.LifetimeScopeTag);
+builder.RegisterType<SharedService>().InstancePerHttpRequest(AutofacJobActivator.LifetimeScopeTag);
 ```
 
 From Autofac 3.4.0 Autofac exposed their lifetime tag as well which can be used with `InstancePerBackgroundJob`:
