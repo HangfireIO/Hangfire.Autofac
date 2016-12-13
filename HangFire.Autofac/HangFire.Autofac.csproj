@@ -65,8 +65,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AutofacBootstrapperConfigurationExtensions.cs" />
+    <Compile Include="AutofacContainerPerJobFilterAttribute.cs" />
     <Compile Include="AutofacJobActivator.cs" />
+    <Compile Include="AutofacPerLifetimeScopeJobActivator.cs" />
     <Compile Include="GlobalConfigurationExtensions.cs" />
+    <Compile Include="HangfirePerLifetimeScopeConfigurer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegistrationExtensions.cs" />
   </ItemGroup>
