@@ -10,13 +10,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{905845
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "HangFire.Autofac", "HangFire.Autofac\HangFire.Autofac.xproj", "{E187DFD9-90BC-4753-93BE-C1B018E06B67}"
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Hangfire.Autofac", "Hangfire.Autofac\Hangfire.Autofac.xproj", "{E187DFD9-90BC-4753-93BE-C1B018E06B67}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "HangFire.Autofac.Tests", "HangFire.Autofac.Tests\HangFire.Autofac.Tests.xproj", "{A0CC8628-7684-46B7-AB6E-271FA39BD4EA}"
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Hangfire.Autofac.Tests", "Hangfire.Autofac.Tests\Hangfire.Autofac.Tests.xproj", "{A0CC8628-7684-46B7-AB6E-271FA39BD4EA}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "nuspecs", "nuspecs", "{29BD4E2D-C297-40E0-BC5E-3CC6442A0420}"
 	ProjectSection(SolutionItems) = preProject
-		nuspecs\HangFire.Autofac.nuspec = nuspecs\HangFire.Autofac.nuspec
+		nuspecs\Hangfire.Autofac.nuspec = nuspecs\Hangfire.Autofac.nuspec
 	EndProjectSection
 EndProject
 Global
