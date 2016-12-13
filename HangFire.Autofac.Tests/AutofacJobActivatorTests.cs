@@ -1,234 +1,230 @@
 ﻿using System;
 using Autofac;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
+using Xunit;
 
 namespace Hangfire.Autofac.Tests
 {
-    [TestClass]
-    public class AutofacJobActivatorTests
-    {
-        private ContainerBuilder _builder;
+	public class AutofacJobActivatorTests
+	{
+		private ContainerBuilder _builder;
 
-        [TestInitialize]
-        public void SetUp()
-        {
-            _builder = new ContainerBuilder();
-        }
+		public AutofacJobActivatorTests()
+		{
+			_builder = new ContainerBuilder();
+		}
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void Ctor_ThrowsAnException_WhenLifetimeScopeIsNull()
-        {
-// ReSharper disable once UnusedVariable
-            var activator = new AutofacJobActivator(null);
-        }
+		[Fact]
+		public void Ctor_ThrowsAnException_WhenLifetimeScopeIsNull()
+		{
+			Assert.Throws<ArgumentNullException>(() => new AutofacJobActivator(null));
+		}
 
-        [TestMethod]
-        public void Class_IsBasedOnJobActivator()
-        {
-            var activator = CreateActivator();
-            Assert.IsInstanceOfType(activator, typeof(JobActivator));
-        }
+		[Fact]
+		public void Class_IsBasedOnJobActivator()
+		{
+			var activator = CreateActivator();
 
-        [TestMethod]
-        public void ActivateJob_ResolvesAnInstance_UsingAutofac()
-        {
-            _builder.Register(c => "called").As<string>();
-            var activator = CreateActivator();
+			Assert.IsType<AutofacJobActivator>(activator);
+		}
 
-            var result = activator.ActivateJob(typeof(string));
+		[Fact]
+		public void ActivateJob_ResolvesAnInstance_UsingAutofac()
+		{
+			_builder.Register(c => "called").As<string>();
+			var activator = CreateActivator();
 
-            Assert.AreEqual("called", result);
-        }
+			var result = activator.ActivateJob(typeof(string));
 
-        [TestMethod]
-        public void InstanceRegisteredWith_InstancePerDependency_IsDisposedOnScopeDisposal()
-        {
-            var disposable = new Disposable();
-            _builder.Register(c => disposable).InstancePerDependency();
-            var activator = CreateActivator();
+			Assert.Equal("called", result);
+		}
 
-            using (var scope = activator.BeginScope())
-            {
-                var instance = scope.Resolve(typeof(Disposable));
-                Assert.IsFalse(disposable.Disposed);
-            }
+		[Fact]
+		public void InstanceRegisteredWith_InstancePerDependency_IsDisposedOnScopeDisposal()
+		{
+			var disposable = new Disposable();
+			_builder.Register(c => disposable).InstancePerDependency();
+			var activator = CreateActivator();
 
-            Assert.IsTrue(disposable.Disposed);
-        }
+			using (var scope = activator.BeginScope())
+			{
+				var instance = scope.Resolve(typeof(Disposable));
+				Assert.False(disposable.Disposed);
+			}
 
-        [TestMethod]
-        public void InstanceRegisteredWith_SingleInstance_IsNotDisposedOnScopeDisposal()
-        {
-            var disposable = new Disposable();
-            _builder.Register(c => disposable).SingleInstance();
-            var activator = CreateActivator();
+			Assert.True(disposable.Disposed);
+		}
 
-            using (var scope = activator.BeginScope())
-            {
-                var instance = scope.Resolve(typeof (Disposable));
-                Assert.IsFalse(disposable.Disposed);
-            }
+		[Fact]
+		public void InstanceRegisteredWith_SingleInstance_IsNotDisposedOnScopeDisposal()
+		{
+			var disposable = new Disposable();
+			_builder.Register(c => disposable).SingleInstance();
+			var activator = CreateActivator();
 
-            Assert.IsFalse(disposable.Disposed);
-        }
+			using (var scope = activator.BeginScope())
+			{
+				var instance = scope.Resolve(typeof(Disposable));
+				Assert.False(disposable.Disposed);
+			}
 
-        [TestMethod]
-        public void InstancePerBackgroundJob_RegistersSameServiceInstance_ForTheSameScopeInstance()
-        {
-            _builder.Register(c => new object()).As<object>()
-                .InstancePerBackgroundJob();
-            var activator = CreateActivator();
+			Assert.False(disposable.Disposed);
+		}
 
-            using (var scope = activator.BeginScope())
-            {
-                var instance1 = scope.Resolve(typeof (object));
-                var instance2 = scope.Resolve(typeof (object));
+		[Fact]
+		public void InstancePerBackgroundJob_RegistersSameServiceInstance_ForTheSameScopeInstance()
+		{
+			_builder.Register(c => new object()).As<object>()
+				.InstancePerBackgroundJob();
+			var activator = CreateActivator();
 
-                Assert.AreSame(instance1, instance2);
-            }
-        }
+			using (var scope = activator.BeginScope())
+			{
+				var instance1 = scope.Resolve(typeof(object));
+				var instance2 = scope.Resolve(typeof(object));
 
-        [TestMethod]
-        public void InstancePerBackgroundJob_RegistersDifferentServiceInstances_ForDifferentScopeInstances()
-        {
-            _builder.Register(c => new object()).As<object>().InstancePerBackgroundJob();
-            var activator = CreateActivator();
+				Assert.Same(instance1, instance2);
+			}
+		}
 
-            object instance1;
-            using (var scope1 = activator.BeginScope())
-            {
-                instance1 = scope1.Resolve(typeof (object));
-            }
+		[Fact]
+		public void InstancePerBackgroundJob_RegistersDifferentServiceInstances_ForDifferentScopeInstances()
+		{
+			_builder.Register(c => new object()).As<object>().InstancePerBackgroundJob();
+			var activator = CreateActivator();
 
-            object instance2;
-            using (var scope2 = activator.BeginScope())
-            {
-                instance2 = scope2.Resolve(typeof (object));
-            }
+			object instance1;
+			using (var scope1 = activator.BeginScope())
+			{
+				instance1 = scope1.Resolve(typeof(object));
+			}
 
-            Assert.AreNotSame(instance1, instance2);
-        }
+			object instance2;
+			using (var scope2 = activator.BeginScope())
+			{
+				instance2 = scope2.Resolve(typeof(object));
+			}
 
-        [TestMethod]
-        public void InstanceRegisteredWith_InstancePerBackgroundJob_IsDisposedOnScopeDisposal()
-        {
-            var disposable = new Disposable();
-            _builder.Register(c => disposable).InstancePerBackgroundJob();
-            var activator = CreateActivator();
+			Assert.NotSame(instance1, instance2);
+		}
 
-            using (var scope = activator.BeginScope())
-            {
-                var instance = scope.Resolve(typeof (Disposable));
-            }
+		[Fact]
+		public void InstanceRegisteredWith_InstancePerBackgroundJob_IsDisposedOnScopeDisposal()
+		{
+			var disposable = new Disposable();
+			_builder.Register(c => disposable).InstancePerBackgroundJob();
+			var activator = CreateActivator();
 
-            Assert.IsTrue(disposable.Disposed);
-        }
+			using (var scope = activator.BeginScope())
+			{
+				var instance = scope.Resolve(typeof(Disposable));
+			}
 
-        [TestMethod]
-        public void InstancePerJob_RegistersSameServiceInstance_ForTheSameScopeInstance()
-        {
-            _builder.Register(c => new object()).As<object>().InstancePerLifetimeScope();
-            var activator = CreateActivator(false);
+			Assert.True(disposable.Disposed);
+		}
 
-            using (var scope = activator.BeginScope())
-            {
-                var instance1 = scope.Resolve(typeof(object));
-                var instance2 = scope.Resolve(typeof(object));
+		[Fact]
+		public void InstancePerJob_RegistersSameServiceInstance_ForTheSameScopeInstance()
+		{
+			_builder.Register(c => new object()).As<object>().InstancePerLifetimeScope();
+			var activator = CreateActivator(false);
 
-                Assert.AreSame(instance1, instance2);
-            }
-        }
+			using (var scope = activator.BeginScope())
+			{
+				var instance1 = scope.Resolve(typeof(object));
+				var instance2 = scope.Resolve(typeof(object));
 
-        [TestMethod]
-        public void InstancePerJob_RegistersDifferentServiceInstances_ForDifferentScopeInstances()
-        {
-            _builder.Register(c => new object()).As<object>();
-            var activator = CreateActivator(false);
+				Assert.Same(instance1, instance2);
+			}
+		}
 
-            object instance1;
-            using (var scope1 = activator.BeginScope())
-            {
-                instance1 = scope1.Resolve(typeof(object));
-            }
+		[Fact]
+		public void InstancePerJob_RegistersDifferentServiceInstances_ForDifferentScopeInstances()
+		{
+			_builder.Register(c => new object()).As<object>();
+			var activator = CreateActivator(false);
 
-            object instance2;
-            using (var scope2 = activator.BeginScope())
-            {
-                instance2 = scope2.Resolve(typeof(object));
-            }
+			object instance1;
+			using (var scope1 = activator.BeginScope())
+			{
+				instance1 = scope1.Resolve(typeof(object));
+			}
 
-            Assert.AreNotSame(instance1, instance2);
-        }
+			object instance2;
+			using (var scope2 = activator.BeginScope())
+			{
+				instance2 = scope2.Resolve(typeof(object));
+			}
 
-        [TestMethod]
-        public void InstanceRegisteredWith_InstancePerJob_IsDisposedOnScopeDisposal()
-        {
-            var disposable = new Disposable();
-            _builder.Register(c => disposable);
-            var activator = CreateActivator();
+			Assert.NotSame(instance1, instance2);
+		}
 
-            using (var scope = activator.BeginScope())
-            {
-                var instance = scope.Resolve(typeof(Disposable));
-            }
+		[Fact]
+		public void InstanceRegisteredWith_InstancePerJob_IsDisposedOnScopeDisposal()
+		{
+			var disposable = new Disposable();
+			_builder.Register(c => disposable);
+			var activator = CreateActivator();
 
-            Assert.IsTrue(disposable.Disposed);
-        }
+			using (var scope = activator.BeginScope())
+			{
+				var instance = scope.Resolve(typeof(Disposable));
+			}
 
-        [TestMethod]
-        public void InstancePerJob_RegisteredWithExtraTags_ResolvesForJobScope()
-        {
-            var alternateLifetimeScopeTag = new object();
-            _builder.Register(c => new object()).As<object>()
-               .InstancePerBackgroundJob(alternateLifetimeScopeTag);
-            var activator = CreateActivator();
+			Assert.True(disposable.Disposed);
+		}
 
-            using (var scope = activator.BeginScope())
-            {
-                var instance = scope.Resolve(typeof(object));
-            }
-        }
+		[Fact]
+		public void InstancePerJob_RegisteredWithExtraTags_ResolvesForJobScope()
+		{
+			var alternateLifetimeScopeTag = new object();
+			_builder.Register(c => new object()).As<object>()
+			   .InstancePerBackgroundJob(alternateLifetimeScopeTag);
+			var activator = CreateActivator();
 
-        [TestMethod]
-        public void InstancePerJob_RegisteredWithExtraTags_ResolvesForAlternateScope()
-        {
-            var alternateLifetimeScopeTag = new object();
-            _builder.Register(c => new object()).As<object>()
-               .InstancePerBackgroundJob(alternateLifetimeScopeTag);
-            var container = _builder.Build();
+			using (var scope = activator.BeginScope())
+			{
+				var instance = scope.Resolve(typeof(object));
+			}
+		}
 
-            using (var scope = container.BeginLifetimeScope(alternateLifetimeScopeTag))
-            {
-                var instance = scope.Resolve(typeof(object));
-            }
-        }
+		[Fact]
+		public void InstancePerJob_RegisteredWithExtraTags_ResolvesForAlternateScope()
+		{
+			var alternateLifetimeScopeTag = new object();
+			_builder.Register(c => new object()).As<object>()
+			   .InstancePerBackgroundJob(alternateLifetimeScopeTag);
+			var container = _builder.Build();
 
-        [TestMethod]
-        public void UseAutofacActivator_CallsUseActivatorCorrectly()
-        {
-            var configuration = new Mock<IBootstrapperConfiguration>();
-            var lifetimeScope = new Mock<ILifetimeScope>();
+			using (var scope = container.BeginLifetimeScope(alternateLifetimeScopeTag))
+			{
+				var instance = scope.Resolve(typeof(object));
+			}
+		}
 
-            configuration.Object.UseAutofacActivator(lifetimeScope.Object);
+		//[Fact]
+		//public void UseAutofacActivator_CallsUseActivatorCorrectly()
+		//{
+		//	var configuration = new Mock<IBootstrapperConfiguration>();
+		//	var lifetimeScope = new Mock<ILifetimeScope>();
 
-            configuration.Verify(x => x.UseActivator(It.IsAny<AutofacJobActivator>()));
-        }
+		//	configuration.Object.UseAutofacActivator(lifetimeScope.Object);
 
-        private AutofacJobActivator CreateActivator(bool useTaggedLifetimeScope = true)
-        {
-            return new AutofacJobActivator(_builder.Build(), useTaggedLifetimeScope);
-        }
+		//	configuration.Verify(x => x.UseActivator(It.IsAny<AutofacJobActivator>()));
+		//}
 
-        class Disposable : IDisposable
-        {
-            public bool Disposed { get; set; }
+		private AutofacJobActivator CreateActivator(bool useTaggedLifetimeScope = true)
+		{
+			return new AutofacJobActivator(_builder.Build(), useTaggedLifetimeScope);
+		}
 
-            public void Dispose()
-            {
-                Disposed = true;
-            }
-        }
-    }
+		class Disposable : IDisposable
+		{
+			public bool Disposed { get; set; }
+
+			public void Dispose()
+			{
+				Disposed = true;
+			}
+		}
+	}
 }
