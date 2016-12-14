@@ -4,7 +4,7 @@
 	"testRunner": "xunit",
 	"dependencies": {
 		"xunit": "2.2.0-*",
-		"Hangfire.Autofac": "2.3.0-*",
+		"HangFire.Autofac": "2.3.0-*",
 		"dotnet-test-xunit": "2.2.0-*"
 	},
 
