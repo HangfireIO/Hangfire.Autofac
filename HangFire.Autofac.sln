@@ -1,17 +1,22 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.30501.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hangfire.Autofac", "HangFire.Autofac\Hangfire.Autofac.csproj", "{635B2DE7-841F-4834-B609-8DA159D87552}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hangfire.Autofac.Tests", "HangFire.Autofac.Tests\Hangfire.Autofac.Tests.csproj", "{382A41AF-D939-4519-8336-DC6058CAA013}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{9058456C-F07D-4BD2-8E1C-9AAD8D836D81}"
 	ProjectSection(SolutionItems) = preProject
 		.nuget\NuGet.Config = .nuget\NuGet.Config
 		.nuget\NuGet.exe = .nuget\NuGet.exe
 		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Hangfire.Autofac", "Hangfire.Autofac\Hangfire.Autofac.xproj", "{E187DFD9-90BC-4753-93BE-C1B018E06B67}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Hangfire.Autofac.Tests", "Hangfire.Autofac.Tests\Hangfire.Autofac.Tests.xproj", "{A0CC8628-7684-46B7-AB6E-271FA39BD4EA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "nuspecs", "nuspecs", "{29BD4E2D-C297-40E0-BC5E-3CC6442A0420}"
+	ProjectSection(SolutionItems) = preProject
+		nuspecs\Hangfire.Autofac.nuspec = nuspecs\Hangfire.Autofac.nuspec
 	EndProjectSection
 EndProject
 Global
@@ -20,14 +25,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{635B2DE7-841F-4834-B609-8DA159D87552}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{635B2DE7-841F-4834-B609-8DA159D87552}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{635B2DE7-841F-4834-B609-8DA159D87552}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{635B2DE7-841F-4834-B609-8DA159D87552}.Release|Any CPU.Build.0 = Release|Any CPU
-		{382A41AF-D939-4519-8336-DC6058CAA013}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{382A41AF-D939-4519-8336-DC6058CAA013}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{382A41AF-D939-4519-8336-DC6058CAA013}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{382A41AF-D939-4519-8336-DC6058CAA013}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E187DFD9-90BC-4753-93BE-C1B018E06B67}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E187DFD9-90BC-4753-93BE-C1B018E06B67}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E187DFD9-90BC-4753-93BE-C1B018E06B67}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E187DFD9-90BC-4753-93BE-C1B018E06B67}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A0CC8628-7684-46B7-AB6E-271FA39BD4EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A0CC8628-7684-46B7-AB6E-271FA39BD4EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A0CC8628-7684-46B7-AB6E-271FA39BD4EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A0CC8628-7684-46B7-AB6E-271FA39BD4EA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
