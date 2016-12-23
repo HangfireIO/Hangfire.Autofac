@@ -1,0 +1,10 @@
+version: 1.0.{build}
+before_build:
+- cmd: dotnet restore
+build:
+  verbosity: minimal
+test_script:
+- cmd: >-
+    cd HangFire.Autofac.Tests
+
+    dotnet test
