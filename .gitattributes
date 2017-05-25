@@ -1,0 +1,30 @@
+# Auto detect text files and perform LF normalization
+* text=auto
+
+# Custom for Visual Studio
+*.cs     diff=csharp text
+*.sln    merge=union text eol=crlf
+*.csproj merge=union text eol=crlf
+*.vbproj merge=union text eol=crlf
+*.fsproj merge=union text eol=crlf
+*.dbproj merge=union text eol=crlf
+
+# Source code
+*.bat    text
+*.ps1    text
+*.nuspec text
+
+# Documentation
+*.md           text
+*.txt          text
+*.manifest     text
+COPYING        text
+COPYING.LESSER text
+
+# Configs
+*.config       text
+.editorconfig  text
+.gitattributes text
+.gitignore     text
+*.yml          text
+*.DotSettings  text
