@@ -16,6 +16,12 @@ bld/
 [Bb]in/
 [Oo]bj/
 
+# Visual Studio cache/options directory
+.vs/
+
+# Cake files
+tools
+
 # MSTest test Results
 [Tt]est[Rr]esult*/
 [Bb]uild[Ll]og.*
