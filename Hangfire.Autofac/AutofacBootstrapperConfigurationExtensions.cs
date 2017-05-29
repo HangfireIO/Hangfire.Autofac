@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if NET45
+using System;
 using Autofac;
 
 namespace Hangfire
@@ -21,3 +22,4 @@ namespace Hangfire
         }
     }
 }
+#endif

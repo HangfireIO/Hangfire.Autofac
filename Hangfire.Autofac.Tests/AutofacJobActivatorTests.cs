@@ -205,6 +205,7 @@ namespace Hangfire.Autofac.Tests
             }
         }
 
+#if NET45
         [TestMethod]
         public void UseAutofacActivator_CallsUseActivatorCorrectly()
         {
@@ -215,6 +216,7 @@ namespace Hangfire.Autofac.Tests
 
             configuration.Verify(x => x.UseActivator(It.IsAny<AutofacJobActivator>()));
         }
+#endif
 
         private AutofacJobActivator CreateActivator(bool useTaggedLifetimeScope = true)
         {

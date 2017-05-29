@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <DisableImplicitFrameworkReferences>true</DisableImplicitFrameworkReferences>
-    <TargetFrameworks>net45</TargetFrameworks>
+    <TargetFrameworks>net45;netstandard1.3</TargetFrameworks>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -27,8 +27,14 @@
     <Copyright>Copyright © 2014-2017 Sergey Odinokov</Copyright>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
   </PropertyGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)'=='netstandard1.3'">
+    <PackageReference Include="NETStandard.Library" Version="1.6.0" />
+    <PackageReference Include="Autofac" Version="4.0.0" />
+    <PackageReference Include="Hangfire.Core" Version="1.6.0" />
+  </ItemGroup>
   
-  <ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)'=='net45'">
     <PackageReference Include="Autofac" Version="3.0.0" />
     <PackageReference Include="Hangfire.Core" Version="1.5.0" />
     <PackageReference Include="Newtonsoft.Json" Version="5.0.1" />
