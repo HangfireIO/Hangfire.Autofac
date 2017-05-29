@@ -9,3 +9,12 @@ pull_requests:
 
 build_script:
   - powershell .\build.ps1 -Target CI
+
+#---------------------------------#
+#      artifacts configuration    #
+#---------------------------------#
+
+artifacts:
+  - path: 'build\*.nupkg'
+  - path: 'build\*.zip'
+  
