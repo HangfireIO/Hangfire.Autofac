@@ -3,6 +3,30 @@
     <DisableImplicitFrameworkReferences>true</DisableImplicitFrameworkReferences>
     <TargetFrameworks>net45</TargetFrameworks>
   </PropertyGroup>
+
+  <PropertyGroup>
+    <PackageId>HangFire.Autofac</PackageId>
+    <Authors>Sergey Odinokov</Authors>
+    <Owners>odinserj</Owners>
+    <Summary>Autofac IoC Container support for Hangfire (background job system for ASP.NET applications).</Summary>
+    <Description>Autofac IoC Container support for Hangfire (background job system for ASP.NET applications).</Description>
+    <ProjectUrl>https://github.com/HangfireIO/Hangfire.Autofac</ProjectUrl>
+    <PackageLicenseUrl>https://raw.github.com/HangfireIO/Hangfire.Autofac/master/LICENSE</PackageLicenseUrl>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageTags>Hangfire Autofac IoC</PackageTags>
+    <PackageReleaseNotes>
+      2.2.0
+      * Added – Allow combining lifetime scope tags (by @chaoaretasty).
+
+      2.1.0
+      * Added – Ability to use non-tagged nested lifetime scopes.
+
+      2.0.1
+      * Changed – `AutofacJobActivator.LifetimeScopeTag` field is now public.
+    </PackageReleaseNotes>
+    <Copyright>Copyright © 2014-2017 Sergey Odinokov</Copyright>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+  </PropertyGroup>
   
   <ItemGroup>
     <PackageReference Include="Autofac" Version="3.0.0" />
