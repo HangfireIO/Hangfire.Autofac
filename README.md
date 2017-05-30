@@ -1,4 +1,5 @@
-Hangfire.Autofac [![Build status](https://ci.appveyor.com/api/projects/status/oncvxlqtnake9c86)](https://ci.appveyor.com/project/odinserj/hangfire-autofac)
+
+Hangfire.Autofac [![Build status](https://ci.appveyor.com/api/projects/status/oncvxlqtnake9c86)](https://ci.appveyor.com/project/odinserj/hangfire-autofac) [![Travis](https://img.shields.io/travis/HangfireIO/Hangfire.Autofac/master.svg?label=travis)](https://travis-ci.org/HangfireIO/Hangfire.Autofac)
 ================
 
 [Autofac](http://autofac.org) integration for [Hangfire](http://hangfire.io). Provides an implementation of the `JobActivator` class and registration extensions, allowing you to use Autofac container to **resolve job type instances** as well as **control the lifetime** of the all related dependencies.
