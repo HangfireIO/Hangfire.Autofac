@@ -1,0 +1,17 @@
+# Travis-CI Build for Hangfire.Autofac
+# see travis-ci.org for details
+
+sudo: required
+dist: trusty
+dotnet: 1.0.4
+mono: none
+
+language: csharp
+
+os: 
+  - linux
+  - osx
+
+script:
+    travis_retry dotnet restore --disable-parallel;
+    dotnet test Hangfire.Autofac.Tests/Hangfire.Autofac.Tests.csproj -c Release -f netcoreapp1.0;
