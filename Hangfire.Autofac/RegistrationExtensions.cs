@@ -3,6 +3,7 @@ using System.Linq;
 using Autofac.Builder;
 using Hangfire.Annotations;
 
+// ReSharper disable once CheckNamespace
 namespace Hangfire
 {
     /// <summary>

@@ -2,6 +2,7 @@
 using Autofac;
 using Hangfire.Annotations;
 
+// ReSharper disable once CheckNamespace
 namespace Hangfire
 {
     public static class GlobalConfigurationExtensions

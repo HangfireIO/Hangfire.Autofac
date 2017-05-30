@@ -2,6 +2,7 @@
 using System;
 using Autofac;
 
+// ReSharper disable once CheckNamespace
 namespace Hangfire
 {
     public static class AutofacBootstrapperConfigurationExtensions
