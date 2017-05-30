@@ -9,9 +9,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{905845
 		.nuget\NuGet.exe = .nuget\NuGet.exe
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hangfire.Autofac", "HangFire.Autofac\Hangfire.Autofac.csproj", "{C75F15D3-9EA8-4B13-9FCA-D7B22AC1D92F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hangfire.Autofac", "Hangfire.Autofac\Hangfire.Autofac.csproj", "{C75F15D3-9EA8-4B13-9FCA-D7B22AC1D92F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hangfire.Autofac.Tests", "HangFire.Autofac.Tests\Hangfire.Autofac.Tests.csproj", "{42957241-3105-4859-B6AB-5962C1F0BCD5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hangfire.Autofac.Tests", "Hangfire.Autofac.Tests\Hangfire.Autofac.Tests.csproj", "{42957241-3105-4859-B6AB-5962C1F0BCD5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

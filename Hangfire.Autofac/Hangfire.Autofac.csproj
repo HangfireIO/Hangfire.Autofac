@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <PackageId>HangFire.Autofac</PackageId>
+    <PackageId>Hangfire.Autofac</PackageId>
     <Authors>Sergey Odinokov</Authors>
     <Owners>odinserj</Owners>
     <Summary>Autofac IoC Container support for Hangfire (background job system for ASP.NET applications).</Summary>
