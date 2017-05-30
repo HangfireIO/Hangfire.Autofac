@@ -39,12 +39,21 @@ namespace Hangfire
             return _lifetimeScope.Resolve(jobType);
         }
 
+#if NET45
         public override JobActivatorScope BeginScope()
         {
             return new AutofacScope(_useTaggedLifetimeScope
                 ? _lifetimeScope.BeginLifetimeScope(LifetimeScopeTag)
                 : _lifetimeScope.BeginLifetimeScope());
         }
+#else
+        public override JobActivatorScope BeginScope(JobActivatorContext context)
+        {
+            return new AutofacScope(_useTaggedLifetimeScope
+                ? _lifetimeScope.BeginLifetimeScope(LifetimeScopeTag)
+                : _lifetimeScope.BeginLifetimeScope());
+        }
+#endif
 
         class AutofacScope : JobActivatorScope
         {
