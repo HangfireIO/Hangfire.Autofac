@@ -1,7 +1,6 @@
 ﻿using System;
 using Autofac;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
 
 namespace Hangfire.Autofac.Tests
 {
@@ -49,8 +48,9 @@ namespace Hangfire.Autofac.Tests
             _builder.Register(c => disposable).InstancePerDependency();
             var activator = CreateActivator();
 
-            using (var scope = activator.BeginScope())
+            using (var scope = BeginScope(activator))
             {
+                // ReSharper disable once UnusedVariable
                 var instance = scope.Resolve(typeof(Disposable));
                 Assert.IsFalse(disposable.Disposed);
             }
@@ -65,8 +65,9 @@ namespace Hangfire.Autofac.Tests
             _builder.Register(c => disposable).SingleInstance();
             var activator = CreateActivator();
 
-            using (var scope = activator.BeginScope())
+            using (var scope = BeginScope(activator))
             {
+                // ReSharper disable once UnusedVariable
                 var instance = scope.Resolve(typeof (Disposable));
                 Assert.IsFalse(disposable.Disposed);
             }
@@ -81,7 +82,7 @@ namespace Hangfire.Autofac.Tests
                 .InstancePerBackgroundJob();
             var activator = CreateActivator();
 
-            using (var scope = activator.BeginScope())
+            using (var scope = BeginScope(activator))
             {
                 var instance1 = scope.Resolve(typeof (object));
                 var instance2 = scope.Resolve(typeof (object));
@@ -97,13 +98,13 @@ namespace Hangfire.Autofac.Tests
             var activator = CreateActivator();
 
             object instance1;
-            using (var scope1 = activator.BeginScope())
+            using (var scope1 = BeginScope(activator))
             {
                 instance1 = scope1.Resolve(typeof (object));
             }
 
             object instance2;
-            using (var scope2 = activator.BeginScope())
+            using (var scope2 = BeginScope(activator))
             {
                 instance2 = scope2.Resolve(typeof (object));
             }
@@ -118,8 +119,9 @@ namespace Hangfire.Autofac.Tests
             _builder.Register(c => disposable).InstancePerBackgroundJob();
             var activator = CreateActivator();
 
-            using (var scope = activator.BeginScope())
+            using (var scope = BeginScope(activator))
             {
+                // ReSharper disable once UnusedVariable
                 var instance = scope.Resolve(typeof (Disposable));
             }
 
@@ -132,7 +134,7 @@ namespace Hangfire.Autofac.Tests
             _builder.Register(c => new object()).As<object>().InstancePerLifetimeScope();
             var activator = CreateActivator(false);
 
-            using (var scope = activator.BeginScope())
+            using (var scope = BeginScope(activator))
             {
                 var instance1 = scope.Resolve(typeof(object));
                 var instance2 = scope.Resolve(typeof(object));
@@ -148,13 +150,13 @@ namespace Hangfire.Autofac.Tests
             var activator = CreateActivator(false);
 
             object instance1;
-            using (var scope1 = activator.BeginScope())
+            using (var scope1 = BeginScope(activator))
             {
                 instance1 = scope1.Resolve(typeof(object));
             }
 
             object instance2;
-            using (var scope2 = activator.BeginScope())
+            using (var scope2 = BeginScope(activator))
             {
                 instance2 = scope2.Resolve(typeof(object));
             }
@@ -169,8 +171,9 @@ namespace Hangfire.Autofac.Tests
             _builder.Register(c => disposable);
             var activator = CreateActivator();
 
-            using (var scope = activator.BeginScope())
+            using (var scope = BeginScope(activator))
             {
+                // ReSharper disable once UnusedVariable
                 var instance = scope.Resolve(typeof(Disposable));
             }
 
@@ -185,8 +188,9 @@ namespace Hangfire.Autofac.Tests
                .InstancePerBackgroundJob(alternateLifetimeScopeTag);
             var activator = CreateActivator();
 
-            using (var scope = activator.BeginScope())
+            using (var scope = BeginScope(activator))
             {
+                // ReSharper disable once UnusedVariable
                 var instance = scope.Resolve(typeof(object));
             }
         }
@@ -201,7 +205,8 @@ namespace Hangfire.Autofac.Tests
 
             using (var scope = container.BeginLifetimeScope(alternateLifetimeScopeTag))
             {
-                var instance = scope.Resolve(typeof(object));
+                // ReSharper disable once UnusedVariable
+                var  instance = scope.Resolve(typeof(object));
             }
         }
 
@@ -209,12 +214,14 @@ namespace Hangfire.Autofac.Tests
         [TestMethod]
         public void UseAutofacActivator_CallsUseActivatorCorrectly()
         {
-            var configuration = new Mock<IBootstrapperConfiguration>();
-            var lifetimeScope = new Mock<ILifetimeScope>();
+#pragma warning disable 618
+            var configuration = new Moq.Mock<IBootstrapperConfiguration>();
+            var lifetimeScope = new Moq.Mock<ILifetimeScope>();
 
             configuration.Object.UseAutofacActivator(lifetimeScope.Object);
 
-            configuration.Verify(x => x.UseActivator(It.IsAny<AutofacJobActivator>()));
+            configuration.Verify(x => x.UseActivator(Moq.It.IsAny<AutofacJobActivator>()));
+#pragma warning restore 618
         }
 #endif
 
@@ -231,6 +238,15 @@ namespace Hangfire.Autofac.Tests
             {
                 Disposed = true;
             }
+        }
+
+        private static JobActivatorScope BeginScope(JobActivator activator)
+        {
+#if NET45
+            return activator.BeginScope();
+#else
+            return activator.BeginScope(null);
+#endif
         }
     }
 }

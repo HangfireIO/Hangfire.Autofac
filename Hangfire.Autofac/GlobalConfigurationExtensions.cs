@@ -11,8 +11,8 @@ namespace Hangfire
             [NotNull] this IGlobalConfiguration configuration, 
             [NotNull] ILifetimeScope lifetimeScope, bool useTaggedLifetimeScope = true)
         {
-            if (configuration == null) throw new ArgumentNullException("configuration");
-            if (lifetimeScope == null) throw new ArgumentNullException("lifetimeScope");
+            if (configuration == null) throw new ArgumentNullException(nameof(configuration));
+            if (lifetimeScope == null) throw new ArgumentNullException(nameof(lifetimeScope));
 
             return configuration.UseActivator(new AutofacJobActivator(lifetimeScope, useTaggedLifetimeScope));
         }
