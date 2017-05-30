@@ -37,7 +37,5 @@
   <ItemGroup Condition="'$(TargetFramework)'=='net45'">
     <PackageReference Include="Autofac" Version="3.0.0" />
     <PackageReference Include="Hangfire.Core" Version="1.5.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="5.0.1" />
-    <PackageReference Include="Owin" Version="1.0" />
   </ItemGroup>
 </Project>
