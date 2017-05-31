@@ -22,19 +22,19 @@
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageTags>Hangfire Autofac IoC</PackageTags>
     <PackageReleaseNotes>
-      2.3.0
-      * Added – Support .NET Standard 1.3.
-      * Changed - Removed references to Newtonsoft.Json and Owin packages.
-      * Changed - HangFire.Autofac was renamed to Hangfire.Autofac.
+2.3.0
+* Added – Support .NET Standard 1.3.
+* Changed - Removed references to Newtonsoft.Json and Owin packages.
+* Changed - HangFire.Autofac was renamed to Hangfire.Autofac.
 
-      2.2.0
-      * Added – Allow combining lifetime scope tags (by @chaoaretasty).
+2.2.0
+* Added – Allow combining lifetime scope tags (by @chaoaretasty).
 
-      2.1.0
-      * Added – Ability to use non-tagged nested lifetime scopes.
+2.1.0
+* Added – Ability to use non-tagged nested lifetime scopes.
 
-      2.0.1
-      * Changed – `AutofacJobActivator.LifetimeScopeTag` field is now public.
+2.0.1
+* Changed – `AutofacJobActivator.LifetimeScopeTag` field is now public.
     </PackageReleaseNotes>
     <Copyright>Copyright © 2014-2017 Sergey Odinokov</Copyright>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
