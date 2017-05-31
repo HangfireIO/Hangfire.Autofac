@@ -2,7 +2,7 @@
   <PropertyGroup>
     <DisableImplicitFrameworkReferences>true</DisableImplicitFrameworkReferences>
     <TargetFrameworks>net45;netstandard1.3</TargetFrameworks>
-    <DebugType>portable</DebugType>
+    <DebugType>embedded</DebugType>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <NoWarn>1591</NoWarn>
   </PropertyGroup>
@@ -11,6 +11,17 @@
     <DebugType>full</DebugType>
   </PropertyGroup>
 
+  <ItemGroup Condition="'$(TargetFramework)'=='netstandard1.3'">
+    <PackageReference Include="NETStandard.Library" Version="1.6.0" />
+    <PackageReference Include="Autofac" Version="4.0.0" />
+    <PackageReference Include="Hangfire.Core" Version="1.6.0" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)'=='net45'">
+    <PackageReference Include="Autofac" Version="3.0.0" />
+    <PackageReference Include="Hangfire.Core" Version="1.5.0" />
+  </ItemGroup>
+  
   <PropertyGroup>
     <PackageId>Hangfire.Autofac</PackageId>
     <Authors>Sergey Odinokov</Authors>
@@ -23,9 +34,10 @@
     <PackageTags>Hangfire Autofac IoC</PackageTags>
     <PackageReleaseNotes>
 2.3.0
-* Added – Support .NET Standard 1.3.
+* Added – Support for .NET Core with .NET Standard 1.3.
+* Added - Support for SourceLink 2.0 for .NET Standard 1.3. If "Enable source link support flag is set" in Visual Studio it's possible to debug Hangfire.Autofac using its downloaded sources.
 * Changed - Removed references to Newtonsoft.Json and Owin packages.
-* Changed - HangFire.Autofac was renamed to Hangfire.Autofac.
+* Changed - Renamed HangFire.Autofac to Hangfire.Autofac.
 
 2.2.0
 * Added – Allow combining lifetime scope tags (by @chaoaretasty).
@@ -40,14 +52,20 @@
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
   </PropertyGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)'=='netstandard1.3'">
-    <PackageReference Include="NETStandard.Library" Version="1.6.0" />
-    <PackageReference Include="Autofac" Version="4.0.0" />
-    <PackageReference Include="Hangfire.Core" Version="1.6.0" />
-  </ItemGroup>
+  <!--Source link configuration-->
+  <PropertyGroup Condition="'$(TargetFramework)'=='netstandard1.3'">
+    <RepoUri>https://raw.githubusercontent.com/HangfireIO/Hangfire.Autofac</RepoUri>
+    <SourceLink>$(BaseIntermediateOutputPath)\source_link.json</SourceLink>
+  </PropertyGroup>
   
-  <ItemGroup Condition="'$(TargetFramework)'=='net45'">
-    <PackageReference Include="Autofac" Version="3.0.0" />
-    <PackageReference Include="Hangfire.Core" Version="1.5.0" />
-  </ItemGroup>
+  <Target Name="GenerateSourceLink" BeforeTargets="CoreCompile" Condition="'$(TargetFramework)'=='netstandard1.3'">
+    <Delete Files="$(SourceLink)" Condition="Exists('$(SourceLink)')" />
+    <Exec Command="git rev-parse HEAD" ConsoleToMSBuild="true">
+      <Output TaskParameter="ConsoleOutput" PropertyName="LatestCommit" />
+    </Exec>
+    <Exec Command="git rev-parse --show-toplevel" ConsoleToMSBuild="true">
+      <Output TaskParameter="ConsoleOutput" PropertyName="GitRootFolder" />
+    </Exec>
+    <WriteLinesToFile File="$(SourceLink)" Lines="{&quot;documents&quot;: { &quot;$([System.IO.Path]::GetFullPath('$(GitRootFolder)/').Replace('\','\\'))*&quot; : &quot;$(RepoUri)/$(LatestCommit)/*&quot; }}" />
+  </Target>
 </Project>
