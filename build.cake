@@ -40,7 +40,12 @@ Task("Build")
     .Does(()=> 
 {
     var buildSettings =  new DotNetCoreBuildSettings { Configuration = configuration };
-    if(!string.IsNullOrEmpty(version)) buildSettings.ArgumentCustomization = args => args.Append("/p:Version=" + version);
+    buildSettings.ArgumentCustomization = args => 
+    {
+        if (!string.IsNullOrEmpty(version)) args = args.Append("/p:Version=" + version);
+        if (target == "CI") args = args.Append("/p:SourceLinkCreate=true");
+        return args;
+    };
 
     DotNetCoreBuild("Hangfire.Autofac/Hangfire.Autofac.csproj", buildSettings);
 });

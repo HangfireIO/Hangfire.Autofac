@@ -21,6 +21,12 @@
     <PackageReference Include="Autofac" Version="3.0.0" />
     <PackageReference Include="Hangfire.Core" Version="1.5.0" />
   </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="SourceLink.Create.GitHub" Version="2.1.2" PrivateAssets="All" />
+    <DotNetCliToolReference Include="dotnet-sourcelink-git" Version="2.1.2" />
+    <DotNetCliToolReference Include="dotnet-sourcelink" Version="2.1.2" />
+  </ItemGroup>
   
   <PropertyGroup>
     <PackageId>Hangfire.Autofac</PackageId>
@@ -51,21 +57,4 @@
     <Copyright>Copyright © 2014-2017 Sergey Odinokov</Copyright>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
   </PropertyGroup>
-
-  <!--Source link configuration-->
-  <PropertyGroup Condition="'$(TargetFramework)'=='netstandard1.3'">
-    <RepoUri>https://raw.githubusercontent.com/HangfireIO/Hangfire.Autofac</RepoUri>
-    <SourceLink>$(BaseIntermediateOutputPath)\source_link.json</SourceLink>
-  </PropertyGroup>
-  
-  <Target Name="GenerateSourceLink" BeforeTargets="CoreCompile" Condition="'$(TargetFramework)'=='netstandard1.3'">
-    <Delete Files="$(SourceLink)" Condition="Exists('$(SourceLink)')" />
-    <Exec Command="git rev-parse HEAD" ConsoleToMSBuild="true">
-      <Output TaskParameter="ConsoleOutput" PropertyName="LatestCommit" />
-    </Exec>
-    <Exec Command="git rev-parse --show-toplevel" ConsoleToMSBuild="true">
-      <Output TaskParameter="ConsoleOutput" PropertyName="GitRootFolder" />
-    </Exec>
-    <WriteLinesToFile File="$(SourceLink)" Lines="{&quot;documents&quot;: { &quot;$([System.IO.Path]::GetFullPath('$(GitRootFolder)/').Replace('\','\\'))*&quot; : &quot;$(RepoUri)/$(LatestCommit)/*&quot; }}" />
-  </Target>
 </Project>
