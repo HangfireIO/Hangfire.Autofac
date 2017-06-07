@@ -2,7 +2,7 @@
 
 os: Visual Studio 2017
 
-version: 2.3.0-build-0{build}
+version: 2.3.1-build-0{build}
 
 pull_requests:
   do_not_increment_build_number: true
