@@ -25,12 +25,13 @@
   </ItemGroup>
   
   <PropertyGroup>
+    <Title>Hangfire Autofac Integration</Title>
     <PackageId>Hangfire.Autofac</PackageId>
     <Authors>Sergey Odinokov</Authors>
     <Owners>odinserj</Owners>
     <Summary>Autofac IoC Container support for Hangfire (background job system for ASP.NET applications).</Summary>
     <Description>Autofac IoC Container support for Hangfire (background job system for ASP.NET applications).</Description>
-    <ProjectUrl>https://github.com/HangfireIO/Hangfire.Autofac</ProjectUrl>
+    <PackageProjectUrl>https://github.com/HangfireIO/Hangfire.Autofac</PackageProjectUrl>
     <PackageLicenseUrl>https://raw.github.com/HangfireIO/Hangfire.Autofac/master/LICENSE</PackageLicenseUrl>
     <PackageTags>Hangfire Autofac IoC Integration</PackageTags>
     <PackageReleaseNotes>
