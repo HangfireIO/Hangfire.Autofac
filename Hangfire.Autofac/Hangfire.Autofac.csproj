@@ -32,7 +32,7 @@
     <ProjectUrl>https://github.com/HangfireIO/Hangfire.Autofac</ProjectUrl>
     <PackageLicenseUrl>https://raw.github.com/HangfireIO/Hangfire.Autofac/master/LICENSE</PackageLicenseUrl>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <PackageTags>Hangfire Autofac IoC</PackageTags>
+    <PackageTags>Hangfire Autofac IoC Integration</PackageTags>
     <PackageReleaseNotes>
 2.3.0
 * Added – Support for .NET Core with .NET Standard 1.3.
