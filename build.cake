@@ -31,7 +31,7 @@ Task("Test").IsDependentOn("Build").Does(() =>
 {
     DotNetCoreTest("./Hangfire.Autofac.Tests/Hangfire.Autofac.Tests.csproj", new DotNetCoreTestSettings
     {
-        Configuration = "Release",
+        Configuration = configuration,
         ArgumentCustomization = args => args.Append("/p:BuildProjectReferences=false")
     });
 });
