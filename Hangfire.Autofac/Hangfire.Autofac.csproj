@@ -31,14 +31,13 @@
     <Description>Autofac IoC Container support for Hangfire (background job system for ASP.NET applications).</Description>
     <ProjectUrl>https://github.com/HangfireIO/Hangfire.Autofac</ProjectUrl>
     <PackageLicenseUrl>https://raw.github.com/HangfireIO/Hangfire.Autofac/master/LICENSE</PackageLicenseUrl>
-    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageTags>Hangfire Autofac IoC Integration</PackageTags>
     <PackageReleaseNotes>
 2.3.0
 * Added – Support for .NET Core with .NET Standard 1.3.
-* Added - Support for SourceLink 2.0. If "Enable source link support flag is set" in Visual Studio it's possible to debug Hangfire.Autofac using its downloaded sources.
-* Changed - Removed references to Newtonsoft.Json and Owin packages.
-* Changed - Renamed HangFire.Autofac to Hangfire.Autofac.
+* Added – Support for SourceLink 2.0. If "Enable source link support flag is set" in Visual Studio it's possible to debug Hangfire.Autofac using its downloaded sources.
+* Changed – Removed references to Newtonsoft.Json and Owin packages.
+* Changed – Renamed HangFire.Autofac to Hangfire.Autofac.
 
 2.2.0
 * Added – Allow combining lifetime scope tags (by @chaoaretasty).
