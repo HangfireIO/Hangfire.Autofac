@@ -87,9 +87,8 @@ Passing Hangfire's scope tag to Autofac's `InstancePerHttpRequest`:
 builder.RegisterType<SharedService>().InstancePerHttpRequest(AutofacJobActivator.LifetimeScopeTag);
 ```
 
-From Autofac 3.4.0 Autofac exposed their lifetime tag as well which can be used with `InstancePerBackgroundJob`:
+From Autofac 3.4.0 Autofac exposed their lifetime tag, `MatchingScopeLifetimeTags.RequestLifetimeScopeTag`, which can be used with `InstancePerBackgroundJob`:
 ```csharp
-MatchingScopeLifetimeTags.RequestLifetimeScopeTag
 builder.RegisterType<SharedService>().InstancePerBackgroundJob(MatchingScopeLifetimeTags.RequestLifetimeScopeTag);
 ```
 
