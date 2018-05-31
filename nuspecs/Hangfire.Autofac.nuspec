@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<package>
+  <metadata>
+    <id>Hangfire.Autofac</id>
+    <version>0.0.0</version>
+    <title>Hangfire Autofac Integration</title>
+    <authors>Sergey Odinokov</authors>
+    <owners>odinserj</owners>
+    <projectUrl>https://github.com/HangfireIO/Hangfire.Autofac</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <licenseUrl>https://raw.github.com/HangfireIO/Hangfire.Autofac/master/LICENSE</licenseUrl>
+    <description>Autofac IoC Container support for Hangfire (background job system for ASP.NET applications).</description>
+    <copyright>Copyright © 2014 Sergey Odinokov</copyright>
+    <tags>Hangfire Autofac IoC Integration</tags>
+    <releaseNotes>https://github.com/HangfireIO/Hangfire.Autofac/releases
+    
+2.3.1
+* Changed – NuGet package title and a link to the project site were added.
+
+2.3.0
+* Added – Support for .NET Core with .NET Standard 1.3.
+* Added – Support for SourceLink 2.0. If "Enable source link support flag is set" in Visual Studio it's possible to debug Hangfire.Autofac using its downloaded sources.
+* Changed – Removed references to Newtonsoft.Json and Owin packages.
+* Changed – Renamed HangFire.Autofac to Hangfire.Autofac.
+
+2.2.0
+* Added – Allow combining lifetime scope tags (by @chaoaretasty).
+
+2.1.0
+* Added – Ability to use non-tagged nested lifetime scopes.
+
+2.0.1
+* Changed – `AutofacJobActivator.LifetimeScopeTag` field is now public.
+    </releaseNotes>
+    <dependencies>
+      <group targetFramework="net45">
+        <dependency id="Autofac" version="3.0.0" />
+        <dependency id="Hangfire.Core" version="1.5.0" />
+      </group>
+      <group targetFramework="netstandard1.3">
+        <dependency id="NETStandard.Library" version="1.6.0" />
+        <dependency id="Autofac" version="4.0.0" />
+        <dependency id="Hangfire.Core" version="1.6.0" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="net45\Hangfire.Autofac.dll" target="lib\net45" />
+    <file src="net45\Hangfire.Autofac.xml" target="lib\net45" />
+
+    <file src="netstandard1.3\Hangfire.Autofac.dll" target="lib\netstandard1.3" />
+    <file src="netstandard1.3\Hangfire.Autofac.xml" target="lib\netstandard1.3" />
+
+    <file src="..\src\Hangfire.Autofac\**\*.cs" target="src" exclude="**\obj*\**\*.cs" />
+
+    <file src="LICENSE" />
+  </files>
+</package>

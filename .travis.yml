@@ -3,7 +3,7 @@
 
 sudo: required
 dist: trusty
-dotnet: 1.0.4
+dotnet: 2.1.0
 mono: none
 
 language: csharp
@@ -14,4 +14,4 @@ os:
 
 script:
     travis_retry dotnet restore --disable-parallel;
-    dotnet test Hangfire.Autofac.Tests/Hangfire.Autofac.Tests.csproj -c Release -f netcoreapp1.0;
+    dotnet test tests/Hangfire.Autofac.Tests/Hangfire.Autofac.Tests.csproj -c Release -f netcoreapp2.1;

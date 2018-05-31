@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Linq;
+using System.Collections.Generic;
 using Autofac.Builder;
 using Hangfire.Annotations;
 
@@ -50,8 +50,10 @@ namespace Hangfire
         {
             if (registration == null) throw new ArgumentNullException("registration");
 
-            var tags = new[] { AutofacJobActivator.LifetimeScopeTag }.Concat(lifetimeScopeTags).ToArray();
-            return registration.InstancePerMatchingLifetimeScope(tags);
+            var tags = new List<object> { AutofacJobActivator.LifetimeScopeTag };
+            tags.AddRange(lifetimeScopeTags);
+
+            return registration.InstancePerMatchingLifetimeScope(tags.ToArray());
         }
     }
 }

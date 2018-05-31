@@ -8,9 +8,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{905845
 		.nuget\NuGet.exe = .nuget\NuGet.exe
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hangfire.Autofac", "Hangfire.Autofac\Hangfire.Autofac.csproj", "{C75F15D3-9EA8-4B13-9FCA-D7B22AC1D92F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hangfire.Autofac", "src\Hangfire.Autofac\Hangfire.Autofac.csproj", "{C75F15D3-9EA8-4B13-9FCA-D7B22AC1D92F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hangfire.Autofac.Tests", "Hangfire.Autofac.Tests\Hangfire.Autofac.Tests.csproj", "{42957241-3105-4859-B6AB-5962C1F0BCD5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hangfire.Autofac.Tests", "tests\Hangfire.Autofac.Tests\Hangfire.Autofac.Tests.csproj", "{42957241-3105-4859-B6AB-5962C1F0BCD5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{4957DA4F-B3DB-4DA4-9642-C54A716B68FD}"
+	ProjectSection(SolutionItems) = preProject
+		build.bat = build.bat
+		psake-project.ps1 = psake-project.ps1
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,5 +35,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {ACFC4F30-A606-4691-8C46-A8E8366DFC22}
 	EndGlobalSection
 EndGlobal
