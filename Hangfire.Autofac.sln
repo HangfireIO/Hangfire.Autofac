@@ -14,8 +14,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hangfire.Autofac.Tests", "t
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{4957DA4F-B3DB-4DA4-9642-C54A716B68FD}"
 	ProjectSection(SolutionItems) = preProject
+		.travis.yml = .travis.yml
+		appveyor.yml = appveyor.yml
 		build.bat = build.bat
 		psake-project.ps1 = psake-project.ps1
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "nuspecs", "nuspecs", "{1AC4778F-330D-4A4B-B680-C9DA7A7E612B}"
+	ProjectSection(SolutionItems) = preProject
+		nuspecs\Hangfire.Autofac.nuspec = nuspecs\Hangfire.Autofac.nuspec
 	EndProjectSection
 EndProject
 Global
