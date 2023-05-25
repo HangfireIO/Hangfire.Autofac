@@ -10,7 +10,7 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <licenseUrl>https://raw.github.com/HangfireIO/Hangfire.Autofac/master/LICENSE</licenseUrl>
     <description>Autofac IoC Container support for Hangfire (background job system for ASP.NET applications).</description>
-    <copyright>Copyright © 2014 Sergey Odinokov</copyright>
+    <copyright>Copyright © 2014-2023 Hangfire OÜ</copyright>
     <tags>Hangfire Autofac IoC Integration</tags>
     <releaseNotes>https://github.com/HangfireIO/Hangfire.Autofac/releases
     
