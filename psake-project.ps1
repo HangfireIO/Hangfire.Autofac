@@ -21,6 +21,7 @@ Task Test -Depends CompileCore -Description "Run unit and integration tests." {
 Task Collect -Depends Test -Description "Copy all artifacts to the build folder." {
     Collect-Assembly "Hangfire.Autofac" "net45"
     Collect-Assembly "Hangfire.Autofac" "netstandard1.3"
+    Collect-Assembly "Hangfire.Autofac" "netstandard2.0"
     Collect-File "LICENSE"
 }
 

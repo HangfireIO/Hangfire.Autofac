@@ -8,7 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyCulture("")]
 
 [assembly: ComVisible(false)]
+#if NET45
 [assembly: CLSCompliant(true)]
+#endif
 
 // Don't edit manually! Use `build.bat version` command instead!
 [assembly: AssemblyVersion("2.3.1")]
