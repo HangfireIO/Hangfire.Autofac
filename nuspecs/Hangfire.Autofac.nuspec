@@ -57,6 +57,9 @@
     <file src="netstandard1.3\Hangfire.Autofac.dll" target="lib\netstandard1.3" />
     <file src="netstandard1.3\Hangfire.Autofac.xml" target="lib\netstandard1.3" />
 
+    <file src="netstandard2.0\Hangfire.Autofac.dll" target="lib\netstandard2.0" />
+    <file src="netstandard2.0\Hangfire.Autofac.xml" target="lib\netstandard2.0" />
+
     <file src="..\src\Hangfire.Autofac\**\*.cs" target="src" exclude="**\obj*\**\*.cs" />
 
     <file src="LICENSE" />
