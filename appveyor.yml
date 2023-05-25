@@ -1,7 +1,7 @@
 # AppVeyor CI build file, https://ci.appveyor.com/project/odinserj/hangfire-autofac
 
 # Don't edit manually! Use `build.bat version` command instead!
-version: 2.4.0-build-0{build}
+version: 2.4.1-build-0{build}
 
 os: Visual Studio 2019
 

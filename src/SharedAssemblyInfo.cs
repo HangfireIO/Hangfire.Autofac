@@ -13,4 +13,4 @@ using System.Runtime.InteropServices;
 #endif
 
 // Don't edit manually! Use `build.bat version` command instead!
-[assembly: AssemblyVersion("2.4.0")]
+[assembly: AssemblyVersion("2.4.1")]
