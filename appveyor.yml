@@ -3,7 +3,7 @@
 # Don't edit manually! Use `build.bat version` command instead!
 version: 2.3.1-build-0{build}
 
-os: Visual Studio 2017
+os: Visual Studio 2019
 
 build_script: build.bat pack
 
@@ -12,14 +12,6 @@ artifacts:
   - path: 'build\*.zip'
   
 deploy:
-  - provider: GitHub
-    auth_token:
-      secure: Kx+tJBMfq/OK7sMpvQDdigFOIIfzYkVmIHxNQetanQdIA5Mb8zm/VhAkrId4x5zW
-    artifact: /.*\.zip/
-    draft: true
-    on:
-      appveyor_repo_tag: true
-
   - provider: NuGet
     api_key: 
       secure: 8BQmcR1hP9MoxvrmXJKMtlRyX6LI36H9ZTU8fSEetvzMGCl1PUlXKZRUGq+GVMja
