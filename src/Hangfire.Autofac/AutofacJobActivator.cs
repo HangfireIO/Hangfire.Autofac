@@ -28,8 +28,7 @@ namespace Hangfire
         /// BackgroundJobScope to resolve dependencies or create new Scope on each job</param>
         public AutofacJobActivator([NotNull] ILifetimeScope lifetimeScope, bool useTaggedLifetimeScope = true)
         {
-            if (lifetimeScope == null) throw new ArgumentNullException("lifetimeScope");
-            _lifetimeScope = lifetimeScope;
+            _lifetimeScope = lifetimeScope ?? throw new ArgumentNullException(nameof(lifetimeScope));
             _useTaggedLifetimeScope = useTaggedLifetimeScope;
         }
 
@@ -55,7 +54,7 @@ namespace Hangfire
         }
 #endif
 
-        class AutofacScope : JobActivatorScope
+        sealed class AutofacScope : JobActivatorScope
         {
             private readonly ILifetimeScope _lifetimeScope;
 

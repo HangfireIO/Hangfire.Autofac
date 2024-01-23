@@ -19,6 +19,7 @@ namespace Hangfire
             this IBootstrapperConfiguration configuration,
             ILifetimeScope lifetimeScope, bool useTaggedLifetimeScope = true)
         {
+            if (configuration == null) throw new ArgumentNullException(nameof(configuration));
             configuration.UseActivator(new AutofacJobActivator(lifetimeScope, useTaggedLifetimeScope));
         }
     }

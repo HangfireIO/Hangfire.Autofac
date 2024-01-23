@@ -11,6 +11,14 @@ namespace Hangfire
     /// </summary>
     public static class RegistrationExtensions
     {
+        private static readonly object[] EmptyObjectArray =
+#if NET45
+            new object[0]
+#else
+            Array.Empty<object>()
+#endif
+            ;
+
         /// <summary>
         /// Share one instance of the component within the context of a single
         /// processing background job instance.
@@ -27,7 +35,7 @@ namespace Hangfire
             InstancePerBackgroundJob<TLimit, TActivatorData, TStyle>(
             [NotNull] this IRegistrationBuilder<TLimit, TActivatorData, TStyle> registration)
         {
-            return registration.InstancePerBackgroundJob(new object[] { });
+            return registration.InstancePerBackgroundJob(EmptyObjectArray);
         }
 
         /// <summary>
@@ -48,7 +56,7 @@ namespace Hangfire
             [NotNull] this IRegistrationBuilder<TLimit, TActivatorData, TStyle> registration,
             params object[] lifetimeScopeTags)
         {
-            if (registration == null) throw new ArgumentNullException("registration");
+            if (registration == null) throw new ArgumentNullException(nameof(registration));
 
             var tags = new List<object> { AutofacJobActivator.LifetimeScopeTag };
             tags.AddRange(lifetimeScopeTags);
