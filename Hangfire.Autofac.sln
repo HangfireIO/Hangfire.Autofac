@@ -26,6 +26,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "nuspecs", "nuspecs", "{1AC4
 		nuspecs\Hangfire.Autofac.nuspec = nuspecs\Hangfire.Autofac.nuspec
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{5742DC62-57DF-4C3C-9F69-DA68058E9C38}"
+	ProjectSection(SolutionItems) = preProject
+		tests\Directory.Build.props = tests\Directory.Build.props
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -46,5 +51,8 @@ Global
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {ACFC4F30-A606-4691-8C46-A8E8366DFC22}
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{42957241-3105-4859-B6AB-5962C1F0BCD5} = {5742DC62-57DF-4C3C-9F69-DA68058E9C38}
 	EndGlobalSection
 EndGlobal
