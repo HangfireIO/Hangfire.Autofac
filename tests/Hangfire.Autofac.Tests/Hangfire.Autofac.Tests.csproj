@@ -6,4 +6,8 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\Hangfire.Autofac\Hangfire.Autofac.csproj" />
   </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)'=='net452'">
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" />
+  </ItemGroup>
 </Project>
