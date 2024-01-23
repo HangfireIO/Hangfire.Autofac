@@ -13,6 +13,12 @@
     <copyright>Copyright © 2014-2024 Hangfire OÜ</copyright>
     <tags>Hangfire Autofac IoC Integration</tags>
     <releaseNotes>https://github.com/HangfireIO/Hangfire.Autofac/releases
+2.5.0
+* Project – Full source link support with embedded symbols and repository-based sources.
+* Project – Enable static analysis via the `Microsoft.CodeAnalysis.NetAnalyzers` package.
+* Project – Restore packages in locked mode for all the projects.
+* Project – Switch from MSTest to Xunit for simplicity across other projects.
+
 2.4.1
 * Fixed – Add missing files for the `netstandard2.0` target to the NuGet package.
 
