@@ -1,11 +1,35 @@
 # AppVeyor CI build file, https://ci.appveyor.com/project/odinserj/hangfire-autofac
 
-# Don't edit manually! Use `build.bat version` command instead!
+# Notes:
+#   - Minimal appveyor.yml file is an empty file. All sections are optional.
+#   - Indent each level of configuration with 2 spaces. Do not use tabs!
+#   - All section names are case-sensitive.
+#   - Section names should be unique on each level.
+
+#---------------------------------#
+#    environment configuration    #
+#---------------------------------#
+
+# Please don't edit it manually, use the `build.bat version` command instead.
 version: 2.4.1-build-0{build}
 
-os: Visual Studio 2019
+image: Visual Studio 2022
 
-build_script: build.bat pack
+#---------------------------------#
+#       build configuration       #
+#---------------------------------#
+
+build_script: build.bat
+
+#---------------------------------#
+#       tests configuration       #
+#---------------------------------#
+
+test: off
+
+#---------------------------------#
+#      artifacts configuration    #
+#---------------------------------#
 
 artifacts:
   - path: 'build\*.nupkg'

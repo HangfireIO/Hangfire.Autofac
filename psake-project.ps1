@@ -1,21 +1,9 @@
-Framework 4.5.1
-Include "packages\Hangfire.Build.0.2.6\tools\psake-common.ps1"
+Include "packages\Hangfire.Build.0.3.3\tools\psake-common.ps1"
 
-Task Default -Depends Collect
+Task Default -Depends Pack
 
-Task RestoreCore {
-    Exec { 
-        dotnet clean
-        dotnet restore 
-    }
-}
-
-Task CompileCore -Depends RestoreCore {
-    Exec { dotnet build -c Release }
-}
-
-Task Test -Depends CompileCore -Description "Run unit and integration tests." {
-    Exec { dotnet test "tests\Hangfire.Autofac.Tests\Hangfire.Autofac.Tests.csproj" }
+Task Test -Depends Compile -Description "Run unit and integration tests." {
+    Exec { dotnet test -c release --no-build "tests\Hangfire.Autofac.Tests" }
 }
 
 Task Collect -Depends Test -Description "Copy all artifacts to the build folder." {
