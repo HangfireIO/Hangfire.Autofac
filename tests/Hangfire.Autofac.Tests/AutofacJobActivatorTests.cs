@@ -1,36 +1,28 @@
 ﻿using System;
 using Autofac;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Hangfire.Autofac.Tests
 {
-    [TestClass]
     public class AutofacJobActivatorTests
     {
-        private ContainerBuilder _builder;
+        private readonly ContainerBuilder _builder = new ContainerBuilder();
 
-        [TestInitialize]
-        public void SetUp()
-        {
-            _builder = new ContainerBuilder();
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void Ctor_ThrowsAnException_WhenLifetimeScopeIsNull()
         {
-// ReSharper disable once UnusedVariable
-            var activator = new AutofacJobActivator(null);
+            var exception = Assert.Throws<ArgumentNullException>(() => new AutofacJobActivator(null));
+            Assert.Equal("lifetimeScope", exception.ParamName);
         }
 
-        [TestMethod]
+        [Fact]
         public void Class_IsBasedOnJobActivator()
         {
             var activator = CreateActivator();
-            Assert.IsInstanceOfType(activator, typeof(JobActivator));
+            Assert.IsAssignableFrom<JobActivator>(activator);
         }
 
-        [TestMethod]
+        [Fact]
         public void ActivateJob_ResolvesAnInstance_UsingAutofac()
         {
             _builder.Register(c => "called").As<string>();
@@ -38,10 +30,10 @@ namespace Hangfire.Autofac.Tests
 
             var result = activator.ActivateJob(typeof(string));
 
-            Assert.AreEqual("called", result);
+            Assert.Equal("called", result);
         }
 
-        [TestMethod]
+        [Fact]
         public void InstanceRegisteredWith_InstancePerDependency_IsDisposedOnScopeDisposal()
         {
             var disposable = new Disposable();
@@ -52,13 +44,13 @@ namespace Hangfire.Autofac.Tests
             {
                 // ReSharper disable once UnusedVariable
                 var instance = scope.Resolve(typeof(Disposable));
-                Assert.IsFalse(disposable.Disposed);
+                Assert.False(disposable.Disposed);
             }
 
-            Assert.IsTrue(disposable.Disposed);
+            Assert.True(disposable.Disposed);
         }
 
-        [TestMethod]
+        [Fact]
         public void InstanceRegisteredWith_SingleInstance_IsNotDisposedOnScopeDisposal()
         {
             var disposable = new Disposable();
@@ -69,13 +61,13 @@ namespace Hangfire.Autofac.Tests
             {
                 // ReSharper disable once UnusedVariable
                 var instance = scope.Resolve(typeof (Disposable));
-                Assert.IsFalse(disposable.Disposed);
+                Assert.False(disposable.Disposed);
             }
 
-            Assert.IsFalse(disposable.Disposed);
+            Assert.False(disposable.Disposed);
         }
 
-        [TestMethod]
+        [Fact]
         public void InstancePerBackgroundJob_RegistersSameServiceInstance_ForTheSameScopeInstance()
         {
             _builder.Register(c => new object()).As<object>()
@@ -87,11 +79,11 @@ namespace Hangfire.Autofac.Tests
                 var instance1 = scope.Resolve(typeof (object));
                 var instance2 = scope.Resolve(typeof (object));
 
-                Assert.AreSame(instance1, instance2);
+                Assert.Same(instance1, instance2);
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void InstancePerBackgroundJob_RegistersDifferentServiceInstances_ForDifferentScopeInstances()
         {
             _builder.Register(c => new object()).As<object>().InstancePerBackgroundJob();
@@ -109,10 +101,10 @@ namespace Hangfire.Autofac.Tests
                 instance2 = scope2.Resolve(typeof (object));
             }
 
-            Assert.AreNotSame(instance1, instance2);
+            Assert.NotSame(instance1, instance2);
         }
 
-        [TestMethod]
+        [Fact]
         public void InstanceRegisteredWith_InstancePerBackgroundJob_IsDisposedOnScopeDisposal()
         {
             var disposable = new Disposable();
@@ -125,10 +117,10 @@ namespace Hangfire.Autofac.Tests
                 var instance = scope.Resolve(typeof (Disposable));
             }
 
-            Assert.IsTrue(disposable.Disposed);
+            Assert.True(disposable.Disposed);
         }
 
-        [TestMethod]
+        [Fact]
         public void InstancePerJob_RegistersSameServiceInstance_ForTheSameScopeInstance()
         {
             _builder.Register(c => new object()).As<object>().InstancePerLifetimeScope();
@@ -139,11 +131,11 @@ namespace Hangfire.Autofac.Tests
                 var instance1 = scope.Resolve(typeof(object));
                 var instance2 = scope.Resolve(typeof(object));
 
-                Assert.AreSame(instance1, instance2);
+                Assert.Same(instance1, instance2);
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void InstancePerJob_RegistersDifferentServiceInstances_ForDifferentScopeInstances()
         {
             _builder.Register(c => new object()).As<object>();
@@ -161,10 +153,10 @@ namespace Hangfire.Autofac.Tests
                 instance2 = scope2.Resolve(typeof(object));
             }
 
-            Assert.AreNotSame(instance1, instance2);
+            Assert.NotSame(instance1, instance2);
         }
 
-        [TestMethod]
+        [Fact]
         public void InstanceRegisteredWith_InstancePerJob_IsDisposedOnScopeDisposal()
         {
             var disposable = new Disposable();
@@ -177,10 +169,10 @@ namespace Hangfire.Autofac.Tests
                 var instance = scope.Resolve(typeof(Disposable));
             }
 
-            Assert.IsTrue(disposable.Disposed);
+            Assert.True(disposable.Disposed);
         }
 
-        [TestMethod]
+        [Fact]
         public void InstancePerJob_RegisteredWithExtraTags_ResolvesForJobScope()
         {
             var alternateLifetimeScopeTag = new object();
@@ -195,7 +187,7 @@ namespace Hangfire.Autofac.Tests
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void InstancePerJob_RegisteredWithExtraTags_ResolvesForAlternateScope()
         {
             var alternateLifetimeScopeTag = new object();
@@ -210,8 +202,8 @@ namespace Hangfire.Autofac.Tests
             }
         }
 
-#if NET45
-        [TestMethod]
+#if NET452
+        [Fact]
         public void UseAutofacActivator_CallsUseActivatorCorrectly()
         {
 #pragma warning disable 618
@@ -242,7 +234,7 @@ namespace Hangfire.Autofac.Tests
 
         private static JobActivatorScope BeginScope(JobActivator activator)
         {
-#if NET45
+#if NET452
             return activator.BeginScope();
 #else
             return activator.BeginScope(null);
