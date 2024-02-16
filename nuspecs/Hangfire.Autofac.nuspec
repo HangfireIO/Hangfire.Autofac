@@ -15,6 +15,14 @@
     <tags>Hangfire Autofac IoC Integration</tags>
     <readme>README.md</readme>
     <releaseNotes>https://github.com/HangfireIO/Hangfire.Autofac/releases
+2.6.0
+* Project – Sign NuGet package and .NET assemblies on build.
+* Project – Enable NuGet package signature validation on restore.
+* Project – Use deterministic and locked package restore for all projects.
+* Project – Add more metadata for assemblies and NuGet package.
+* Project – Fix GitHub repository URL in the nuspec file.
+* Project – Add `HangfireIO` as a NuGet package owner.
+
 2.5.0
 * Project – Full source link support with embedded symbols and repository-based sources.
 * Project – Enable static analysis via the `Microsoft.CodeAnalysis.NetAnalyzers` package.
