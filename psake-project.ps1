@@ -17,6 +17,12 @@ Task Collect -Depends Test -Description "Copy all artifacts to the build folder.
 Task Pack -Depends Collect -Description "Create NuGet packages and archive files." {
     $version = Get-PackageVersion
 
-    Create-Archive "Hangfire.Autofac-$version"
     Create-Package "Hangfire.Autofac" $version
+    Create-Archive "Hangfire.Autofac-$version"
+}
+
+Task Sign -Depends Pack -Description "Sign artifacts." {
+    $version = Get-PackageVersion
+
+    Sign-ArchiveContents "Hangfire.Autofac-$version" "hangfire"
 }
