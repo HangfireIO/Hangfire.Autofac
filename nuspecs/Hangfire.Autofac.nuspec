@@ -9,6 +9,7 @@
     <projectUrl>https://github.com/HangfireIO/Hangfire.Autofac</projectUrl>
     <repository type="git" url="https://github.com/HangfireIO/Hangfire.git" commit="%commit%" />
     <license type="expression">MIT</license>
+    <icon>icon.png</icon>
     <description>Autofac IoC Container support for Hangfire (background job system for ASP.NET applications).</description>
     <copyright>Copyright © 2014-2024 Hangfire OÜ</copyright>
     <tags>Hangfire Autofac IoC Integration</tags>
@@ -69,6 +70,7 @@
     <file src="netstandard2.0\Hangfire.Autofac.dll" target="lib\netstandard2.0" />
     <file src="netstandard2.0\Hangfire.Autofac.xml" target="lib\netstandard2.0" />
 
+    <file src="..\nuspecs\icon.png" />
     <file src="LICENSE" />
   </files>
 </package>
