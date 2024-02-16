@@ -19,12 +19,12 @@ environment:
   SIGNPATH_API_TOKEN:
     secure: dPSXpwedaiJbmsEWuKXVcqQrWHh1fqBelWRFUYwlN6XkcE1UjmXkZMMAxaDv7o5O
 
+install:
+  - ps: Install-Module -Name SignPath
+
 #---------------------------------#
 #       build configuration       #
 #---------------------------------#
-
-before_build:
-  - ps: Install-Module -Name SignPath
 
 build_script: build.bat sign
 
