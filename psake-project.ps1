@@ -11,6 +11,7 @@ Task Collect -Depends Test -Description "Copy all artifacts to the build folder.
     Collect-Assembly "Hangfire.Autofac" "netstandard1.3"
     Collect-Assembly "Hangfire.Autofac" "netstandard2.0"
     Collect-File "LICENSE"
+    Collect-File "README.md"
 }
 
 Task Pack -Depends Collect -Description "Create NuGet packages and archive files." {

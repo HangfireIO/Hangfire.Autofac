@@ -13,6 +13,7 @@
     <description>Autofac IoC Container support for Hangfire (background job system for ASP.NET applications).</description>
     <copyright>Copyright © 2014-2024 Hangfire OÜ</copyright>
     <tags>Hangfire Autofac IoC Integration</tags>
+    <readme>README.md</readme>
     <releaseNotes>https://github.com/HangfireIO/Hangfire.Autofac/releases
 2.5.0
 * Project – Full source link support with embedded symbols and repository-based sources.
@@ -72,5 +73,6 @@
 
     <file src="..\nuspecs\icon.png" />
     <file src="LICENSE" />
+    <file src="README.md" />
   </files>
 </package>

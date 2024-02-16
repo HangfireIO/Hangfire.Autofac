@@ -1,22 +1,19 @@
 
-Hangfire.Autofac [![Build status](https://ci.appveyor.com/api/projects/status/oncvxlqtnake9c86)](https://ci.appveyor.com/project/odinserj/hangfire-autofac) [![Travis](https://img.shields.io/travis/HangfireIO/Hangfire.Autofac/main.svg?label=travis)](https://travis-ci.org/HangfireIO/Hangfire.Autofac)
-================
+# Hangfire.Autofac [![Build status](https://ci.appveyor.com/api/projects/status/oncvxlqtnake9c86?svg=true)](https://ci.appveyor.com/project/hangfireio/hangfire-autofac)
 
-[Autofac](http://autofac.org) integration for [Hangfire](http://hangfire.io). Provides an implementation of the `JobActivator` class and registration extensions, allowing you to use Autofac container to **resolve job type instances** as well as **control the lifetime** of the all related dependencies.
+[Autofac](https://autofac.org) integration for [Hangfire](https://www.hangfire.io). Provides an implementation of the `JobActivator` class and registration extensions, allowing you to use Autofac container to **resolve job type instances** as well as **control the lifetime** of the all related dependencies.
 
-*Hangfire.Autofac* resolves service instances using a child, tagged [lifetime scope](http://docs.autofac.org/en/latest/lifetime/index.html). A child scope is created and disposed each time when background job processing takes place, so you have precise control of your service's lifetime, including **shared instances** and **deterministic disposal**.
+*Hangfire.Autofac* resolves service instances using a child, tagged [lifetime scope](https://docs.autofac.org/en/latest/lifetime/index.html). A child scope is created and disposed each time when background job processing takes place, so you have precise control of your service's lifetime, including **shared instances** and **deterministic disposal**.
 
-Installation
---------------
+## Installation
 
 *Hangfire.Autofac* is available as a NuGet Package. Type the following command into NuGet Package Manager Console window to install it:
 
 ```
-Install-Package Hangfire.Autofac
+> dotnet add package Hangfire.Autofac
 ```
 
-Usage
-------
+## Usage
 
 The package provides an extension methods for the `IGlobalConfiguration` interface, so you can enable Autofac integration using the `GlobalConfiguration` class:
 
@@ -73,10 +70,9 @@ builder.RegisterType<BackgroundJobClient>().SingleInstance();
 builder.RegisterType<MyService>().ExternallyOwned();
 ```
 
-Please refer to the Autofac documentation to learn more about [Automatic Disposal](http://docs.autofac.org/en/latest/lifetime/disposal.html#automatic-disposal) feature.
+Please refer to the Autofac documentation to learn more about [Automatic Disposal](https://docs.autofac.org/en/latest/lifetime/disposal.html#automatic-disposal) feature.
 
-Registering With Multiple Lifetime Scopes
------------------------------------------
+### Registering With Multiple Lifetime Scopes
 
 Services registered with tagged lifetime scopes (eg `InstancePerBackgroundJob`, Autofac's `InstancePerRequest` or a scope your specific application requires) will not resolve outside of these named scopes, a common situation is when using Hangfire in an ASP.NET web application. In these situations you must register all your lifetimescopes together if you want the services to be resolved from any of the scopes. Hangfire.Autofac exposes it's lifetime tag and an overload of `InstancePerBackgroundJob` to help you do this.
 
@@ -99,8 +95,7 @@ var jobTag = AutofacJobActivator.LifetimeScopeTag;
 builder.RegisterType<SharedService>().InstancePerMatchingLifetimeScope(requestTag, jobTag);
 ```
 
-Mixed Lifetime Scopes
----------------------
+### Mixed Lifetime Scopes
 
 Beaware that if you are using multiple lifetime scopes to share services that all dependencies of those services need to be similarly regustered. For example:
 
