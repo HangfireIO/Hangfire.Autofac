@@ -46,6 +46,7 @@ jobs:
         shell: powershell
         run: |
           .\.sonar\scanner\dotnet-sonarscanner begin /k:"HangfireIO_Hangfire.Autofac" /o:"hangfireio" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.dotcover.reportsPaths=dotCover.Output.html /d:sonar.scanner.scanAll=false
-          dotnet build
+          dotnet restore ~/.config/NuGet/NuGet.Config
+          dotnet build --no-restore
           .\.sonar\scanner\dotnet-dotcover test --no-build --dcReportType=HTML
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
