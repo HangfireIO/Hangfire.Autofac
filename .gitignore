@@ -180,3 +180,4 @@ UpgradeLog*.htm
 FakesAssemblies/
 
 .idea/*
+dotCover.Output*
