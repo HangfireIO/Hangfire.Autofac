@@ -16,6 +16,9 @@ namespace Hangfire
         public static readonly object LifetimeScopeTag = "BackgroundJobScope";
 
         private readonly ILifetimeScope _lifetimeScope;
+#if !NET45
+        private readonly Action<ContainerBuilder, JobActivatorContext> _scopeConfigurationAction;
+#endif
         private readonly bool _useTaggedLifetimeScope;
 
         /// <summary>
@@ -31,6 +34,18 @@ namespace Hangfire
             _lifetimeScope = lifetimeScope ?? throw new ArgumentNullException(nameof(lifetimeScope));
             _useTaggedLifetimeScope = useTaggedLifetimeScope;
         }
+
+#if !NET45
+        public AutofacJobActivator(
+            [NotNull] ILifetimeScope lifetimeScope,
+            [CanBeNull] Action<ContainerBuilder, JobActivatorContext> scopeConfigurationAction,
+            bool useTaggedLifetimeScope = true)
+        {
+            _lifetimeScope = lifetimeScope ?? throw new ArgumentNullException(nameof(lifetimeScope));
+            _scopeConfigurationAction = scopeConfigurationAction;
+            _useTaggedLifetimeScope = useTaggedLifetimeScope;
+        }
+#endif
 
         /// <inheritdoc />
         public override object ActivateJob(Type jobType)
@@ -48,6 +63,18 @@ namespace Hangfire
 #else
         public override JobActivatorScope BeginScope(JobActivatorContext context)
         {
+            if (_scopeConfigurationAction != null)
+            {
+                Action<ContainerBuilder> configurationAction = builder =>
+                {
+                    _scopeConfigurationAction(builder, context);
+                };
+
+                return new AutofacScope(_useTaggedLifetimeScope
+                    ? _lifetimeScope.BeginLifetimeScope(LifetimeScopeTag, configurationAction)
+                    : _lifetimeScope.BeginLifetimeScope(configurationAction));
+            }
+
             return new AutofacScope(_useTaggedLifetimeScope
                 ? _lifetimeScope.BeginLifetimeScope(LifetimeScopeTag)
                 : _lifetimeScope.BeginLifetimeScope());
