@@ -202,21 +202,6 @@ namespace Hangfire.Autofac.Tests
             }
         }
 
-#if NET452
-        [Fact]
-        public void UseAutofacActivator_CallsUseActivatorCorrectly()
-        {
-#pragma warning disable 618
-            var configuration = new Moq.Mock<IBootstrapperConfiguration>();
-            var lifetimeScope = new Moq.Mock<ILifetimeScope>();
-
-            configuration.Object.UseAutofacActivator(lifetimeScope.Object);
-
-            configuration.Verify(x => x.UseActivator(Moq.It.IsAny<AutofacJobActivator>()));
-#pragma warning restore 618
-        }
-#endif
-
         private AutofacJobActivator CreateActivator(bool useTaggedLifetimeScope = true)
         {
             return new AutofacJobActivator(_builder.Build(), useTaggedLifetimeScope);
