@@ -27,6 +27,8 @@ jobs:
           restore-keys: ${{ runner.os }}-sonar
       - name: Cache NuGet packages
         uses: actions/cache@v4
+        env:
+          ZSTD_CLEVEL: 1
         with:
           path: ~/.nuget/TrustedPackages
           key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
@@ -52,6 +54,5 @@ jobs:
         shell: powershell
         run: |
           .\.sonar\scanner\dotnet-sonarscanner begin /k:"HangfireIO_Hangfire.Autofac" /o:"hangfireio" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.dotcover.reportsPaths=dotCover.Output.html /d:sonar.scanner.scanAll=false
-          dotnet build -f netstandard2.0
           .\.sonar\scanner\dotnet-dotcover test -f net6.0 --no-build --dcReportType=HTML
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
