@@ -1,5 +1,7 @@
 
-# Hangfire.Autofac [![Build status](https://ci.appveyor.com/api/projects/status/oncvxlqtnake9c86?svg=true)](https://ci.appveyor.com/project/hangfireio/hangfire-autofac)
+# Hangfire.Autofac
+
+[![NuGet](https://img.shields.io/nuget/v/Hangfire.Autofac.svg)](https://www.nuget.org/packages/Hangfire.Autofac) [![Build status](https://ci.appveyor.com/api/projects/status/oncvxlqtnake9c86?svg=true)](https://ci.appveyor.com/project/hangfireio/hangfire-autofac) [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=HangfireIO_Hangfire.Autofac&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=HangfireIO_Hangfire.Autofac) [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=HangfireIO_Hangfire.Autofac&metric=bugs)](https://sonarcloud.io/summary/new_code?id=HangfireIO_Hangfire.Autofac) [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=HangfireIO_Hangfire.Autofac&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=HangfireIO_Hangfire.Autofac)
 
 [Autofac](https://autofac.org) integration for [Hangfire](https://www.hangfire.io). Provides an implementation of the `JobActivator` class and registration extensions, allowing you to use Autofac container to **resolve job type instances** as well as **control the lifetime** of the all related dependencies.
 
