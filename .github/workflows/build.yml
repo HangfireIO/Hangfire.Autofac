@@ -49,3 +49,4 @@ jobs:
           dotnet build
           .\.sonar\scanner\dotnet-dotcover test --no-build --dcReportType=HTML
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
+          
