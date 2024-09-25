@@ -25,7 +25,7 @@ namespace Hangfire.Autofac.Tests
         [Fact]
         public void ActivateJob_ResolvesAnInstance_UsingAutofac()
         {
-            _builder.Register(c => "called").As<string>();
+            _builder.Register(_ => "called").As<string>();
             var activator = CreateActivator();
 
             var result = activator.ActivateJob(typeof(string));
@@ -55,7 +55,7 @@ namespace Hangfire.Autofac.Tests
         public void InstanceRegisteredWith_InstancePerDependency_IsDisposedOnScopeDisposal()
         {
             var disposable = new Disposable();
-            _builder.Register(c => disposable).InstancePerDependency();
+            _builder.Register(_ => disposable).InstancePerDependency();
             var activator = CreateActivator();
 
             using (var scope = BeginScope(activator))
@@ -72,7 +72,7 @@ namespace Hangfire.Autofac.Tests
         public void InstanceRegisteredWith_SingleInstance_IsNotDisposedOnScopeDisposal()
         {
             var disposable = new Disposable();
-            _builder.Register(c => disposable).SingleInstance();
+            _builder.Register(_ => disposable).SingleInstance();
             var activator = CreateActivator();
 
             using (var scope = BeginScope(activator))
@@ -88,7 +88,7 @@ namespace Hangfire.Autofac.Tests
         [Fact]
         public void InstancePerBackgroundJob_RegistersSameServiceInstance_ForTheSameScopeInstance()
         {
-            _builder.Register(c => new object()).As<object>()
+            _builder.Register(_ => new object()).As<object>()
                 .InstancePerBackgroundJob();
             var activator = CreateActivator();
 
@@ -104,7 +104,7 @@ namespace Hangfire.Autofac.Tests
         [Fact]
         public void InstancePerBackgroundJob_RegistersDifferentServiceInstances_ForDifferentScopeInstances()
         {
-            _builder.Register(c => new object()).As<object>().InstancePerBackgroundJob();
+            _builder.Register(_ => new object()).As<object>().InstancePerBackgroundJob();
             var activator = CreateActivator();
 
             object instance1;
@@ -126,7 +126,7 @@ namespace Hangfire.Autofac.Tests
         public void InstanceRegisteredWith_InstancePerBackgroundJob_IsDisposedOnScopeDisposal()
         {
             var disposable = new Disposable();
-            _builder.Register(c => disposable).InstancePerBackgroundJob();
+            _builder.Register(_ => disposable).InstancePerBackgroundJob();
             var activator = CreateActivator();
 
             using (var scope = BeginScope(activator))
@@ -141,7 +141,7 @@ namespace Hangfire.Autofac.Tests
         [Fact]
         public void InstancePerJob_RegistersSameServiceInstance_ForTheSameScopeInstance()
         {
-            _builder.Register(c => new object()).As<object>().InstancePerLifetimeScope();
+            _builder.Register(_ => new object()).As<object>().InstancePerLifetimeScope();
             var activator = CreateActivator(useTaggedLifetimeScope: false);
 
             using (var scope = BeginScope(activator))
@@ -156,7 +156,7 @@ namespace Hangfire.Autofac.Tests
         [Fact]
         public void InstancePerJob_RegistersDifferentServiceInstances_ForDifferentScopeInstances()
         {
-            _builder.Register(c => new object()).As<object>();
+            _builder.Register(_ => new object()).As<object>();
             var activator = CreateActivator(useTaggedLifetimeScope: false);
 
             object instance1;
@@ -178,7 +178,7 @@ namespace Hangfire.Autofac.Tests
         public void InstanceRegisteredWith_InstancePerJob_IsDisposedOnScopeDisposal()
         {
             var disposable = new Disposable();
-            _builder.Register(c => disposable);
+            _builder.Register(_ => disposable);
             var activator = CreateActivator();
 
             using (var scope = BeginScope(activator))
@@ -194,7 +194,7 @@ namespace Hangfire.Autofac.Tests
         public void InstancePerJob_RegisteredWithExtraTags_ResolvesForJobScope()
         {
             var alternateLifetimeScopeTag = new object();
-            _builder.Register(c => new object()).As<object>()
+            _builder.Register(_ => new object()).As<object>()
                .InstancePerBackgroundJob(alternateLifetimeScopeTag);
             var activator = CreateActivator();
 
@@ -209,7 +209,7 @@ namespace Hangfire.Autofac.Tests
         public void InstancePerJob_RegisteredWithExtraTags_ResolvesForAlternateScope()
         {
             var alternateLifetimeScopeTag = new object();
-            _builder.Register(c => new object()).As<object>()
+            _builder.Register(_ => new object()).As<object>()
                .InstancePerBackgroundJob(alternateLifetimeScopeTag);
             var container = _builder.Build();
 
@@ -236,7 +236,7 @@ namespace Hangfire.Autofac.Tests
 
         class Disposable : IDisposable
         {
-            public bool Disposed { get; set; }
+            public bool Disposed { get; private set; }
 
             public void Dispose()
             {
