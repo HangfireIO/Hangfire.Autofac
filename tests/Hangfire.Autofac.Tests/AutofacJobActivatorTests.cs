@@ -33,6 +33,24 @@ namespace Hangfire.Autofac.Tests
             Assert.Equal("called", result);
         }
 
+#if !NET452
+        [Theory]
+        [InlineData(false)]
+        [InlineData(true)]
+        public void ActivateJob_ResolvesServices_RegisteredInTheConfigurationAction(bool taggedScope)
+        {
+            var activator = CreateActivator((builder, _) =>
+            {
+                builder.Register(_ => "configuration_action").As<string>();
+            }, taggedScope);
+
+            using var scope = BeginScope(activator);
+
+            var result = scope.Resolve(typeof(string));
+            Assert.Equal("configuration_action", result);
+        }
+#endif
+
         [Fact]
         public void InstanceRegisteredWith_InstancePerDependency_IsDisposedOnScopeDisposal()
         {
@@ -124,7 +142,7 @@ namespace Hangfire.Autofac.Tests
         public void InstancePerJob_RegistersSameServiceInstance_ForTheSameScopeInstance()
         {
             _builder.Register(c => new object()).As<object>().InstancePerLifetimeScope();
-            var activator = CreateActivator(false);
+            var activator = CreateActivator(useTaggedLifetimeScope: false);
 
             using (var scope = BeginScope(activator))
             {
@@ -139,7 +157,7 @@ namespace Hangfire.Autofac.Tests
         public void InstancePerJob_RegistersDifferentServiceInstances_ForDifferentScopeInstances()
         {
             _builder.Register(c => new object()).As<object>();
-            var activator = CreateActivator(false);
+            var activator = CreateActivator(useTaggedLifetimeScope: false);
 
             object instance1;
             using (var scope1 = BeginScope(activator))
@@ -202,9 +220,18 @@ namespace Hangfire.Autofac.Tests
             }
         }
 
-        private AutofacJobActivator CreateActivator(bool useTaggedLifetimeScope = true)
+        private AutofacJobActivator CreateActivator(
+#if !NET452
+            Action<ContainerBuilder, JobActivatorContext> configure = null,
+#endif
+            bool useTaggedLifetimeScope = true)
         {
-            return new AutofacJobActivator(_builder.Build(), useTaggedLifetimeScope);
+            return new AutofacJobActivator(
+                _builder.Build(),
+#if !NET452
+                configure,
+#endif
+                useTaggedLifetimeScope);
         }
 
         class Disposable : IDisposable

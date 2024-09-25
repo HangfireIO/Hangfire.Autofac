@@ -81,7 +81,7 @@ namespace Hangfire
         }
 #endif
 
-        sealed class AutofacScope : JobActivatorScope
+        private sealed class AutofacScope : JobActivatorScope
         {
             private readonly ILifetimeScope _lifetimeScope;
 
