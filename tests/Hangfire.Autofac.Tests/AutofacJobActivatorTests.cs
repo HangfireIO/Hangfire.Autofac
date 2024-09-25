@@ -183,8 +183,8 @@ namespace Hangfire.Autofac.Tests
 
             using (var scope = BeginScope(activator))
             {
-                // ReSharper disable once UnusedVariable
                 var instance = scope.Resolve(typeof(Disposable));
+                Assert.NotNull(instance);
             }
 
             Assert.True(disposable.Disposed);
@@ -200,8 +200,8 @@ namespace Hangfire.Autofac.Tests
 
             using (var scope = BeginScope(activator))
             {
-                // ReSharper disable once UnusedVariable
                 var instance = scope.Resolve(typeof(object));
+                Assert.NotNull(instance);
             }
         }
 
@@ -215,8 +215,8 @@ namespace Hangfire.Autofac.Tests
 
             using (var scope = container.BeginLifetimeScope(alternateLifetimeScopeTag))
             {
-                // ReSharper disable once UnusedVariable
                 var  instance = scope.Resolve(typeof(object));
+                Assert.NotNull(instance);
             }
         }
 
