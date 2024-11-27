@@ -99,7 +99,7 @@ builder.RegisterType<SharedService>().InstancePerMatchingLifetimeScope(requestTa
 
 ### Mixed Lifetime Scopes
 
-Beaware that if you are using multiple lifetime scopes to share services that all dependencies of those services need to be similarly regustered. For example:
+Beaware that if you are using multiple lifetime scopes to share services that all dependencies of those services need to be similarly registered. For example:
 
 ```csharp
 public class WebOnlyService(){ ... }
