@@ -11,7 +11,7 @@
     <license type="expression">MIT</license>
     <icon>icon.png</icon>
     <description>Autofac IoC Container integration support for Hangfire (background job framework for .NET applications).</description>
-    <copyright>© 2014-2024 Hangfire OÜ</copyright>
+    <copyright>© 2014-2025 Hangfire OÜ</copyright>
     <tags>Hangfire Autofac IoC Integration</tags>
     <readme>README.md</readme>
     <releaseNotes>https://github.com/HangfireIO/Hangfire.Autofac/releases
