@@ -14,7 +14,12 @@
     <copyright>© 2014-2025 Hangfire OÜ</copyright>
     <tags>Hangfire Autofac IoC Integration</tags>
     <readme>README.md</readme>
-    <releaseNotes>https://github.com/HangfireIO/Hangfire.Autofac/releases
+    <releaseNotes><![CDATA[https://github.com/HangfireIO/Hangfire.Autofac/releases
+2.7.0
+* Added – Support for custom scope configuration logic with background job context data.
+* Project – Faster continuous integration builds with the modern Powershell. 
+* Project – Don't emit warnings when building with .NET 9.0 SDK.
+
 2.6.0
 * Project – Sign NuGet package and .NET assemblies on build.
 * Project – Enable NuGet package signature validation on restore.
@@ -52,7 +57,7 @@
 
 2.0.1
 * Changed – `AutofacJobActivator.LifetimeScopeTag` field is now public.
-    </releaseNotes>
+]]></releaseNotes>
     <dependencies>
       <group targetFramework="net45">
         <dependency id="Autofac" version="3.0.0" />

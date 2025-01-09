@@ -28,6 +28,18 @@ GlobalConfiguration.Configuration.UseAutofacActivator(builder.Build());
 
 After invoking the `UseAutofacActivator` method, Autofac-based implementation of the `JobActivator` class will be used to resolve job type instances during the background job processing.
 
+### Custom Scope Configuration
+
+Starting from version 2.7.0 it is possible to define a custom scope configuration action and pass background job-related data to the service registration logic, like identifier, parameters and so on.
+
+```csharp
+GlobalConfiguration.Configuration.UseAutofacActivator(builder.Build(), (builder, context) =>
+{
+    var tenantId = context.GetJobParameter<string>("TenantId", allowStale: true);
+    builder.Register<MultiTenantDatabase>(provider => new MultiTenantDatabase(tenantId));
+});
+```
+
 ### Shared Components
 
 Sometimes it is required to share the same service instance for different components, such as database connection, unit of work, etc. *Hangfire.Autofac* allows you to share them in a scope, limited to the **current** background job processing, just call the `InstancePerBackgroundJob` method in your component registration logic:
